@@ -3,6 +3,7 @@ name: Deploy to WordPress
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -10,20 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Prepare Directories and SCSS Compilation
+      - name: SCSS Compilation
         run: |
-          # cssディレクトリの作成と空ファイル作成
-          mkdir -p css
-          touch css/style.css  # 空のCSSファイルを作成
-          
-          # SCSSコンパイル
           npm install -g sass
-          sass scss/:css/ --style compressed || echo "SCSS compilation had warnings, but continuing..."
-          
-          # ディレクトリとファイルを確認
-          echo "Current directory structure:"
-          find . -type d | sort
-          
+          mkdir -p css
+          touch css/style.css
+          sass scss/:css/ --style compressed || echo "SCSS compilation warnings, continuing..."
+      
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -31,16 +25,16 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
-          # 以下の間違ったパラメータを削除
-          # mkdir: true
-          # logging: standard
-          dangerous-clean-slate: false  # 既存ファイルを削除しない
-          log-level: verbose  # より詳細なログを出力（loggingからlog-levelに修正）
+          # 以下のパスバリエーションを1つずつ試してください
+          # server-dir: public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
+          # または
+          server-dir: ./public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
+          # または
+          # server-dir: ~/public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
+          dangerous-clean-slate: false
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.github/**
-          state-name: ../.ftp-deploy-sync-state.json
-          timeout: 60000
