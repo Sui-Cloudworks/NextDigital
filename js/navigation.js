@@ -34,20 +34,4 @@
             document.body.classList.remove('menu-open');
         }
     });
-    
-    // Add dropdown toggle to menu items with children in mobile view
-    const menuItemsWithChildren = document.querySelectorAll('.menu-item-has-children');
-    
-    menuItemsWithChildren.forEach(function(menuItem) {
-        const dropdownToggle = document.createElement('span');
-        dropdownToggle.className = 'dropdown-toggle';
-        dropdownToggle.innerHTML = '<i class="dropdown-icon"></i>';
-        menuItem.appendChild(dropdownToggle);
-        
-        dropdownToggle.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            this.parentNode.classList.toggle('submenu-open');
-        });
-    });
 } )();

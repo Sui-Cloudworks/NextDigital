@@ -55,38 +55,17 @@ function nextdigital_scripts() {
     // Enqueue Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap', array(), null);
     
-    // Main stylesheet
-    wp_enqueue_style('nextdigital-style', get_stylesheet_uri(), array(), '1.0.0');
+    // Main stylesheet - 重要: コンパイル後のCSSを読み込む
+    wp_enqueue_style('nextdigital-style', get_template_directory_uri() . '/css/style.css', array(), '1.0.0');
     
-    // JavaScript - パスを修正
-    wp_enqueue_script('nextdigital-navigation', get_template_directory_uri() . '/navigation.js', array(), '1.0.0', true);
+    // JavaScript
+    wp_enqueue_script('nextdigital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '1.0.0', true);
     
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 }
 add_action('wp_enqueue_scripts', 'nextdigital_scripts');
-
-/**
- * Custom template tags for this theme.
- */
-$template_tags_file = get_template_directory() . '/inc/template-tags.php';
-if (file_exists($template_tags_file)) {
-    require $template_tags_file;
-} else {
-    // template-tags.php がない場合は、基本的な関数を定義
-    if (!function_exists('nextdigital_posted_on')) {
-        function nextdigital_posted_on() {
-            echo '<span class="posted-on">' . get_the_date() . '</span>';
-        }
-    }
-    
-    if (!function_exists('nextdigital_posted_by')) {
-        function nextdigital_posted_by() {
-            echo '<span class="byline">by ' . get_the_author() . '</span>';
-        }
-    }
-}
 
 /**
  * Register custom post types
@@ -115,11 +94,3 @@ function nextdigital_register_post_types() {
     ));
 }
 add_action('init', 'nextdigital_register_post_types');
-
-/**
- * Create navigation.js file if it doesn't exist
- */
-if (!file_exists(get_template_directory() . '/navigation.js')) {
-    $navigation_js = "/**\n * File navigation.js.\n * Handles toggling the navigation menu for small screens.\n */\n( function() {\n\t// Mobile menu toggle\n\tconst menuToggle = document.querySelector('.menu-toggle');\n\tconst mobileNav = document.querySelector('.mobile-navigation');\n\t\n\tif (menuToggle && mobileNav) {\n\t\tmenuToggle.addEventListener('click', function() {\n\t\t\tthis.classList.toggle('active');\n\t\t\tmobileNav.classList.toggle('active');\n\t\t\tdocument.body.classList.toggle('menu-open');\n\t\t});\n\t}\n} )();\n";
-    file_put_contents(get_template_directory() . '/navigation.js', $navigation_js);
-}
