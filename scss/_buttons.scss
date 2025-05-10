@@ -1,0 +1,44 @@
+// ボタンスタイル
+.button, 
+button,
+input[type="button"],
+input[type="submit"] {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+// プライマリボタン（お問い合わせボタンなど）
+.button-primary {
+    background-color: #9333EA;
+    color: #FFFFFF;
+}
+
+// セカンダリボタン
+.button-secondary {
+    background-color: #1F2937;
+    color: #FFFFFF;
+}
+
+// アウトラインボタン
+.button-outline {
+    background-color: transparent;
+    border: 1px solid currentColor;
+    
+    &.button-primary {
+        color: #9333EA;
+    }
+    
+    &.button-secondary {
+        color: #1F2937;
+    }
+}

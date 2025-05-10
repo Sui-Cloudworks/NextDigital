@@ -2,10 +2,11 @@
 @import 'variables';
 
 // コンポーネント
-@import 'header';
-@import 'footer';
-@import 'buttons';
-@import 'typography';
+@use 'variables' as *;
+@use 'header';
+@use 'footer';
+@use 'buttons';
+@use 'typography';
 
 // ページテンプレート
 @import 'front-page';
