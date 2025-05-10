@@ -1,15 +1,53 @@
-// コンポーネント
-@use 'variables' as *;
-@use 'header';
-@use 'footer';
-@use 'buttons';
-@use 'typography';
+/*
+Theme Name: Next Digital
+Author: Your Name
+Description: Custom theme for Next Digital website
+Version: 1.0
+*/
 
-// ページテンプレート
-@import 'front-page';
-@import 'about';
-@import 'services';
-@import 'works';
+// Import variables and base styles
+@import 'variables';
+@import 'typography';
+@import 'layout';
+@import 'buttons';
+@import 'forms';
+
+// Import component styles
+@import 'header';
+@import 'footer';
+@import 'main-visual';
 @import 'news';
-@import 'contact';
-@import 'page';
+@import 'works';
+@import 'services';
+
+// Reset & Base
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-main;
+  color: $color-text;
+  background-color: $color-background;
+}
+
+// Additional styles
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.page-header {
+  margin-bottom: 40px;
+  text-align: center;
+  
+  .page-title {
+    margin-bottom: 15px;
+  }
+}
+
+.page-content {
+  margin-bottom: 60px;
+}

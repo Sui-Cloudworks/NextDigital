@@ -1,13 +1,13 @@
 <?php
 /**
- * Template Name: Contact Page
+ * Template Name: Privacy Policy Page
  * Template Post Type: page
  */
 
 get_header();
 ?>
 
-<main id="primary" class="site-main contact-page">
+<main id="primary" class="site-main privacy-page">
     <?php
     while (have_posts()) :
         the_post();
@@ -22,17 +22,9 @@ get_header();
 
             <div class="entry-content">
                 <div class="container">
-                    <div class="contact-content">
+                    <div class="privacy-content">
                         <?php the_content(); ?>
                     </div>
-                    
-                    <?php if (shortcode_exists('mwform_formkey')) : ?>
-                        <div class="contact-form">
-                            <?php echo do_shortcode('[mwform_formkey key="contact_form"]'); ?>
-                        </div>
-                    <?php else : ?>
-                        <p>お問い合わせフォームプラグインが有効になっていません。</p>
-                    <?php endif; ?>
                 </div>
             </div>
         </article>

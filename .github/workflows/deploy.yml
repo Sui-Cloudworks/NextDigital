@@ -15,26 +15,64 @@ jobs:
         run: |
           npm install -g sass
           mkdir -p css
-          sass scss/:css/ --style compressed || echo "Continuing despite SCSS warnings"
+          touch css/style.css
+          sass scss/:css/ --style compressed || echo "SCSS compilation warnings, continuing..."
       
-      - name: WordPress Theme Deploy
+      - name: Install LFTP
+        run: sudo apt-get update && sudo apt-get install -y lftp
+      
+      - name: Debug Server Connection
         run: |
-          sudo apt-get update && sudo apt-get install -y lftp
+          echo "Testing connection to FTP server..."
+          lftp -c "
+          open ${{ secrets.FTP_SERVER }};
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
+          pwd;
+          ls -la;
+          "
+      
+      - name: Create Directory Structure
+        run: |
+          echo "Creating directory structure..."
           lftp -c "
           open ${{ secrets.FTP_SERVER }};
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
           set ssl:verify-certificate no;
           set ftp:ssl-allow no;
           
-          # 必要なディレクトリ構造を確保
+          # ベースディレクトリに移動
           cd /home/r9157144/public_html/;
+          
+          # 確実にディレクトリ構造を作成
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
           mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/css;
-          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/scss;
           mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/images;
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/scss;
           mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/template-parts;
           
-          # ファイルのアップロード
+          # 確認
+          ls -la testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
+          "
+      
+      - name: Upload Files
+        run: |
+          echo "Uploading files..."
+          lftp -c "
+          open ${{ secrets.FTP_SERVER }};
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
+          set ssl:verify-certificate no;
+          set ftp:ssl-allow no;
+          set ftp:list-options -a;
+          
+          # ローカルディレクトリをGitHub Workspaceに設定
           lcd $GITHUB_WORKSPACE;
+          
+          # リモートディレクトリをWordPressテーマディレクトリに設定
           cd /home/r9157144/public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
-          mirror --reverse --exclude .git/ --exclude .github/ --exclude node_modules/ --exclude deploy.yml --exclude README.md ./;
+          
+          # ファイルのアップロード
+          mirror --reverse --verbose --exclude .git/ --exclude .github/ --exclude node_modules/ --exclude deploy.yml --exclude README.md ./;
+          
+          # 確認
+          ls -la;
           "

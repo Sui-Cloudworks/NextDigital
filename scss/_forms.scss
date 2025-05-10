@@ -1,0 +1,84 @@
+// Form elements styling
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $color-text;
+  background-color: $color-background;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  
+  &:focus {
+    border-color: $color-accent;
+    outline: none;
+  }
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+// Contact Form 7 Styling
+.wpcf7 {
+  .wpcf7-form-control-wrap {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  .wpcf7-not-valid-tip {
+    color: #dc3545;
+    font-size: $font-size-small;
+    margin-top: 5px;
+  }
+  
+  .wpcf7-response-output {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 4px;
+    
+    &.wpcf7-validation-errors {
+      border: 1px solid #f8b400;
+      background-color: rgba(248, 180, 0, 0.1);
+    }
+    
+    &.wpcf7-mail-sent-ok {
+      border: 1px solid #46b450;
+      background-color: rgba(70, 180, 80, 0.1);
+    }
+  }
+  
+  .wpcf7-submit {
+    @extend .btn;
+    @extend .btn-accent;
+  }
+}

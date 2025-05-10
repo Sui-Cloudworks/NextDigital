@@ -1,9 +1,28 @@
-// カラー
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$text-color: #333333;
+// Colors
+$color-text: #1F2937;
+$color-background: #FFFFFF;
+$color-primary: #1F2937;
+$color-secondary: #4B5563;
+$color-accent: #3B82F6;
+$color-light: #F3F4F6;
+$color-border: #E5E7EB;
 
-$primary-font: 'Helvetica Neue', Arial, sans-serif;
-$heading-font: 'Georgia', serif;
+// Typography
+$font-main: 'Noto Sans JP', sans-serif;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
+$font-size-xl: 24px;
+$font-size-2xl: 30px;
+$font-size-3xl: 36px;
+
+// Layout
 $container-width: 1200px;
-$gutter: 20px;
+$header-height: 69px;
+$grid-gap: 30px;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

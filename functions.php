@@ -1,68 +1,123 @@
 <?php
-// 親テーマのスタイルとスクリプトを読み込み
-function my_theme_enqueue_styles() {
-    wp_enqueue_style( 'my-theme-style', get_stylesheet_directory_uri() . '/css/style.css', array(), filemtime(get_stylesheet_directory() . '/css/style.css') );
-}
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
+/**
+ * Next Digital functions and definitions
+ */
 
-// SVGファイルのアップロードを許可
-function add_svg_to_upload_mimes($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-    return $mimes;
-}
-add_filter('upload_mimes', 'add_svg_to_upload_mimes');
+if (!function_exists('nextdigital_setup')) {
+    function nextdigital_setup() {
+        // Add default posts and comments RSS feed links to head.
+        add_theme_support('automatic-feed-links');
 
-// SVGセキュリティ対策
-function fix_svg_upload_sanitization($data, $file, $filename, $mimes) {
-    if (isset($data['ext']) && $data['ext'] === 'svg') {
-        $data['type'] = 'image/svg+xml';
-        $data['proper_filename'] = $filename;
+        // Let WordPress manage the document title.
+        add_theme_support('title-tag');
+
+        // Enable support for Post Thumbnails on posts and pages.
+        add_theme_support('post-thumbnails');
+
+        // Add support for custom logo
+        add_theme_support('custom-logo', array(
+            'height'      => 47,
+            'width'       => 200,
+            'flex-width'  => true,
+            'flex-height' => true,
+        ));
+
+        // Register navigation menus
+        register_nav_menus(array(
+            'primary' => esc_html__('Primary Menu', 'nextdigital'),
+            'footer'  => esc_html__('Footer Menu', 'nextdigital'),
+        ));
+
+        // Add theme support for selective refresh for widgets.
+        add_theme_support('customize-selective-refresh-widgets');
+
+        // Add support for responsive embeds
+        add_theme_support('responsive-embeds');
+
+        // Add support for HTML5
+        add_theme_support('html5', array(
+            'search-form',
+            'comment-form',
+            'comment-list',
+            'gallery',
+            'caption',
+            'style',
+            'script',
+        ));
     }
-    return $data;
 }
-add_filter('wp_check_filetype_and_ext', 'fix_svg_upload_sanitization', 10, 4);  
+add_action('after_setup_theme', 'nextdigital_setup');
 
-// テーマサポートを追加
-function nexusdigital_setup() {
-    // タイトルタグのサポート
-    add_theme_support('title-tag');
+/**
+ * Enqueue scripts and styles.
+ */
+function nextdigital_scripts() {
+    // Enqueue Google Fonts
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap', array(), null);
     
-    // アイキャッチ画像のサポート
-    add_theme_support('post-thumbnails');
+    // Main stylesheet
+    wp_enqueue_style('nextdigital-style', get_stylesheet_uri(), array(), '1.0.0');
     
-    // メニューの登録
-    register_nav_menus(array(
-        'header-menu' => 'ヘッダーメニュー',
-        'footer-menu' => 'フッターメニュー',
-        'services-menu' => 'サービスメニュー'
+    // JavaScript
+    wp_enqueue_script('nextdigital-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), '1.0.0', true);
+    
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
+}
+add_action('wp_enqueue_scripts', 'nextdigital_scripts');
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Register custom post types
+ */
+function nextdigital_register_post_types() {
+    // Works (実績) Custom Post Type
+    register_post_type('works', array(
+        'labels' => array(
+            'name'               => '実績',
+            'singular_name'      => '実績',
+            'menu_name'          => '実績',
+            'add_new'            => '新規追加',
+            'add_new_item'       => '新規実績を追加',
+            'edit_item'          => '実績を編集',
+            'new_item'           => '新しい実績',
+            'view_item'          => '実績を表示',
+            'search_items'       => '実績を検索',
+            'not_found'          => '実績が見つかりませんでした',
+            'not_found_in_trash' => 'ゴミ箱に実績はありません',
+        ),
+        'public'      => true,
+        'has_archive' => true,
+        'rewrite'     => array('slug' => 'works'),
+        'menu_icon'   => 'dashicons-portfolio',
+        'supports'    => array('title', 'editor', 'thumbnail', 'excerpt'),
     ));
 }
-add_action('after_setup_theme', 'nexusdigital_setup');
+add_action('init', 'nextdigital_register_post_types');
 
-// スタイルシートとスクリプトの読み込み
-function nexusdigital_scripts() {
-    wp_enqueue_style('nexusdigital-style', get_stylesheet_uri());
-    wp_enqueue_style('nexusdigital-main-style', get_template_directory_uri() . '/css/style.css');
+/**
+ * Create inc/template-tags.php for custom template functions
+ */
+if (!file_exists(get_template_directory() . '/inc/template-tags.php')) {
+    // Create the file if it doesn't exist
+    $template_tags_content = "<?php\n/**\n * Custom template tags for this theme\n */\n\n// Add your custom template functions here\n";
+    file_put_contents(get_template_directory() . '/inc/template-tags.php', $template_tags_content);
+}
+
+/**
+ * Create a navigation.js file for mobile menu functionality
+ */
+if (!file_exists(get_template_directory() . '/assets/js/navigation.js')) {
+    // Create js directory if it doesn't exist
+    if (!file_exists(get_template_directory() . '/assets/js')) {
+        mkdir(get_template_directory() . '/assets/js', 0755, true);
+    }
     
-    // 必要に応じてJavaScriptを追加
-    wp_enqueue_script('nexusdigital-script', get_template_directory_uri() . '/js/main.js', array(), '1.0.0', true);
+    $navigation_js = "/**\n * File navigation.js.\n * Handles toggling the navigation menu for small screens.\n */\n( function() {\n\t// Your navigation JS here\n} )();\n";
+    file_put_contents(get_template_directory() . '/assets/js/navigation.js', $navigation_js);
 }
-add_action('wp_enqueue_scripts', 'nexusdigital_scripts');
-
-// カスタム投稿タイプの登録（実績用）
-function nexusdigital_custom_post_types() {
-    register_post_type('works', 
-        array(
-            'labels' => array(
-                'name' => '実績',
-                'singular_name' => '実績'
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
-            'rewrite' => array('slug' => 'works')
-        )
-    );
-}
-add_action('init', 'nexusdigital_custom_post_types');
-?>

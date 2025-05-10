@@ -1,12 +1,72 @@
-// ニュースページのスタイル
-.news-list {
-  article {
+// News archive styles
+.news-archive {
+  .news-item {
     margin-bottom: 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $color-border;
     
     &:last-child {
       border-bottom: none;
+    }
+    
+    .entry-meta {
+      margin-bottom: 10px;
+      font-size: $font-size-small;
+      color: $color-secondary;
+    }
+    
+    .entry-title {
+      font-size: $font-size-large;
+      margin-bottom: 15px;
+    }
+    
+    .entry-content {
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .read-more {
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+  }
+}
+
+// News single post styles
+.single-post {
+  .entry-header {
+    margin-bottom: 30px;
+    
+    .entry-title {
+      margin-bottom: 15px;
+    }
+    
+    .entry-meta {
+      font-size: $font-size-small;
+      color: $color-secondary;
+    }
+  }
+  
+  .post-navigation {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid $color-border;
+    display: flex;
+    justify-content: space-between;
+    
+    .nav-previous,
+    .nav-next {
+      max-width: 45%;
+    }
+    
+    a {
+      color: $color-text;
+      
+      &:hover {
+        color: $color-accent;
+      }
     }
   }
 }

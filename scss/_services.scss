@@ -1,6 +1,116 @@
-// サービスページのスタイル
-.services-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
+// Services overview section
+.services-overview {
+  padding: 60px 0;
+  
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+    
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .service-item {
+    text-align: center;
+    padding: 30px;
+    background-color: $color-light;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-icon {
+      margin-bottom: 20px;
+      
+      img, svg {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+    }
+    
+    .service-title {
+      font-size: $font-size-large;
+      margin-bottom: 15px;
+    }
+    
+    .service-description {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// Service single page
+.service-page {
+  .service-content {
+    margin-bottom: 40px;
+  }
+  
+  .service-features {
+    margin-bottom: 40px;
+    
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 30px;
+      
+      @media (max-width: $breakpoint-md) {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      
+      .feature-icon {
+        flex-shrink: 0;
+        margin-right: 15px;
+        
+        img, svg {
+          width: 30px;
+          height: 30px;
+          object-fit: contain;
+        }
+      }
+      
+      .feature-content {
+        h3 {
+          font-size: $font-size-base;
+          margin-bottom: 10px;
+        }
+        
+        p:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  
+  .service-cta {
+    background-color: $color-light;
+    padding: 40px;
+    border-radius: 5px;
+    text-align: center;
+    
+    h2 {
+      margin-bottom: 20px;
+    }
+    
+    p {
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }

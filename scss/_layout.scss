@@ -1,0 +1,75 @@
+// Container
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 0 15px;
+  
+  @media (max-width: $breakpoint-lg) {
+    padding: 0 20px;
+  }
+}
+
+// Site Content
+.site-content {
+  padding: 40px 0;
+}
+
+// Main
+.site-main {
+  min-height: 500px;
+}
+
+// Section
+.section {
+  margin-bottom: 60px;
+  
+  &-title {
+    font-size: $font-size-2xl;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    
+    &:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: $color-primary;
+      margin: 15px auto 0;
+    }
+  }
+}
+
+// Grid Layout
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: $grid-gap;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Flexbox helpers
+.flex {
+  display: flex;
+  
+  &-center {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &-between {
+    justify-content: space-between;
+  }
+  
+  &-wrap {
+    flex-wrap: wrap;
+  }
+}
