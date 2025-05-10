@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdegital/
+          server-dir: /public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
           # 以下の間違ったパラメータを削除
           # mkdir: true
           # logging: standard
