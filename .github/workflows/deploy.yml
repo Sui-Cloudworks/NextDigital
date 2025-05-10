@@ -26,8 +26,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           # 以下のパスバリエーションを1つずつ試してください
-          server-dir: /home/r9157144/public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
-          # # またはもどす
+          server-dir: public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
+          # # または
           # server-dir: ./public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
           # または
           # server-dir: ~/public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/
