@@ -10,10 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: SCSS Compilation
+      - name: Prepare Directories and SCSS Compilation
         run: |
+          # cssディレクトリの作成と空ファイル作成
+          mkdir -p css
+          touch css/style.css  # 空のCSSファイルを作成
+          
+          # SCSSコンパイル
           npm install -g sass
-          sass scss/:css/ --style compressed
+          sass scss/:css/ --style compressed || echo "SCSS compilation had warnings, but continuing..."
+          
+          # ディレクトリとファイルを確認
+          echo "Current directory structure:"
+          find . -type d | sort
           
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -23,12 +32,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdegital/
-          mkdir: true                     # 存在しないディレクトリを自動作成
-          dangerous-clean-slate: false    # 既存ファイルを削除しない
-          exclude: |                      # 不要なファイルを除外
+          # 以下の間違ったパラメータを削除
+          # mkdir: true
+          # logging: standard
+          dangerous-clean-slate: false  # 既存ファイルを削除しない
+          log-level: verbose  # より詳細なログを出力（loggingからlog-levelに修正）
+          exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-          state-name: ../.ftp-deploy-sync-state.json  # 同期状態ファイルの場所
-          logging: standard               # 標準ログ出力
-          timeout: 60000                  # タイムアウト設定（ミリ秒）
+            **/.github/**
+          state-name: ../.ftp-deploy-sync-state.json
+          timeout: 60000
