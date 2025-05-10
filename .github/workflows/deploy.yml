@@ -23,3 +23,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdegital/
+          mkdir: true                     # 存在しないディレクトリを自動作成
+          dangerous-clean-slate: false    # 既存ファイルを削除しない
+          exclude: |                      # 不要なファイルを除外
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+          state-name: ../.ftp-deploy-sync-state.json  # 同期状態ファイルの場所
+          logging: standard               # 標準ログ出力
+          timeout: 60000                  # タイムアウト設定（ミリ秒）
