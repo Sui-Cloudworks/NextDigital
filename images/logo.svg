@@ -1,0 +1,10 @@
+<svg width="89.06" height="47" viewBox="0 0 89.06 47" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F3E8FF" />
+      <stop offset="100%" stop-color="#9333EA" />
+    </linearGradient>
+  </defs>
+  <text x="2" y="20" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="url(#logoGradient)">Nexus</text>
+  <text x="2" y="40" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="url(#logoGradient)">Digital</text>
+</svg>
