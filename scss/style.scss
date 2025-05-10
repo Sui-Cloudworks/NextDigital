@@ -1,9 +1,17 @@
-// 変数の読み込み
-@import "variables";
-@import "header";
-@import "footer";
-@import "layout";
-@import "front-page";
-@import "page";
-@import "posts";
-@import "responsive";
+// 変数とベーススタイル
+@import 'variables';
+
+// コンポーネント
+@import 'header';
+@import 'footer';
+@import 'buttons';
+@import 'typography';
+
+// ページテンプレート
+@import 'front-page';
+@import 'about';
+@import 'services';
+@import 'works';
+@import 'news';
+@import 'contact';
+@import 'page';
