@@ -1,0 +1,12 @@
+// ニュースページのスタイル
+.news-list {
+  article {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
