@@ -39,12 +39,19 @@ jobs:
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
           set ssl:verify-certificate no;
           set ftp:ssl-allow no;
-          mkdir -p public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
-          mkdir -p public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/css;
-          mkdir -p public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/images;
-          mkdir -p public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/scss;
-          mkdir -p public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/template-parts;
-          ls -la public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
+          
+          # ベースディレクトリに移動
+          cd /home/r9157144/public_html/;
+          
+          # 確実にディレクトリ構造を作成
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/css;
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/images;
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/scss;
+          mkdir -p testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital/template-parts;
+          
+          # 確認
+          ls -la testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
           "
       
       - name: Upload Files
@@ -56,8 +63,16 @@ jobs:
           set ssl:verify-certificate no;
           set ftp:ssl-allow no;
           set ftp:list-options -a;
+          
+          # ローカルディレクトリをGitHub Workspaceに設定
           lcd $GITHUB_WORKSPACE;
-          cd public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
+          
+          # リモートディレクトリをWordPressテーマディレクトリに設定
+          cd /home/r9157144/public_html/testservermizuki.onamaeweb.jp/test51274.com/wp-content/themes/nextdigital;
+          
+          # ファイルのアップロード
           mirror --reverse --verbose --exclude .git/ --exclude .github/ --exclude node_modules/ --exclude deploy.yml --exclude README.md ./;
+          
+          # 確認
           ls -la;
           "
