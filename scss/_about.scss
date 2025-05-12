@@ -1,13 +1,14 @@
 // 会社情報ページ専用スタイル
 // ------------------------------
 
-// 会社情報ヒーローセクション
-.about-hero {
-  background-color: #FAF5FF;
-  padding: 80px 0;
-  height: 312px;
+// ページヒーローセクション（共通テンプレート）
+.page-hero {
+  background-color: #F9F5FE; // 背景色を #F9F5FE に変更
+  padding: 24px 0; // スペーシングを24pxに設定
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-height: 312px; // 最小高さとして312pxを設定（固定高さから最小高さに変更）
   
   .container-inner {
     display: flex;
@@ -16,20 +17,27 @@
     justify-content: center;
   }
   
-  .about-title {
+  .page-title {
     font-size: 48px;
     font-weight: 700;
-    margin-bottom: 20px;
     text-align: center;
+    margin-bottom: 24px; // タイトルと説明文の間隔
   }
   
-  .about-description {
-    max-width: 768px;
+  .page-description {
+    max-width: 768px; // 横幅の最大値を768pxに制限
     text-align: center;
     font-size: 16px;
     line-height: 1.8;
-    color: #4B5563;
+    color: $color-secondary;
+    margin-top: 0;
+    word-wrap: break-word; // 768pxを超える場合は改行
   }
+}
+
+// 会社情報ページ固有のヒーロースタイル（後方互換性のため）
+.about-hero {
+  @extend .page-hero;
 }
 
 // 会社概要セクション
