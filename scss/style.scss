@@ -5,14 +5,18 @@ Description: Custom theme for Next Digital website
 Version: 1.0
 */
 
-// Import variables and base styles
-@import 'variables';
-@import 'header';
-@import 'footer';
-@import 'front-page';
-@import 'animations'; // アニメーション効果
+// -----------------------------------------------------------------------------
+// 1. 基本設定
+// -----------------------------------------------------------------------------
 
-// Reset & Base
+// 変数と設定
+@import 'variables';
+
+// -----------------------------------------------------------------------------
+// 2. 基本スタイル
+// -----------------------------------------------------------------------------
+
+// リセット & ベーススタイル
 * {
   margin: 0;
   padding: 0;
@@ -26,19 +30,22 @@ body {
   line-height: 1.6;
 }
 
-// Container
-.container {
-  width: 100%;
-  max-width: $container-width;
-  margin: 0 auto;
-  padding: 0 15px;
+a {
+  color: $color-accent;
+  text-decoration: none;
+  transition: color 0.3s ease;
   
-  @media (max-width: $breakpoint-lg) {
-    padding: 0 20px;
+  &:hover {
+    color: darken($color-accent, 10%);
   }
 }
 
-// Typography
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// タイポグラフィ
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.3;
@@ -69,22 +76,100 @@ h3 {
   }
 }
 
-a {
-  color: $color-accent;
-  text-decoration: none;
-  transition: color 0.3s ease;
+p {
+  margin-bottom: 1.5em;
+}
+
+ul, ol {
+  margin: 0 0 1.5em 1.5em;
+  padding: 0;
+}
+
+// -----------------------------------------------------------------------------
+// 3. レイアウト
+// -----------------------------------------------------------------------------
+
+// コンテナ
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 0 15px;
   
-  &:hover {
-    color: darken($color-accent, 10%);
+  @media (max-width: $breakpoint-lg) {
+    padding: 0 20px;
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+// サイトコンテンツ
+.site-content {
+  padding: 40px 0;
 }
 
-// Buttons
+// メイン
+.site-main {
+  min-height: 500px;
+}
+
+// セクション
+.section {
+  margin-bottom: 60px;
+  
+  &-title {
+    font-size: $font-size-2xl;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    
+    &:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: $color-primary;
+      margin: 15px auto 0;
+    }
+  }
+}
+
+// グリッドレイアウト
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: $grid-gap;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// フレックスボックスヘルパー
+.flex {
+  display: flex;
+  
+  &-center {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &-between {
+    justify-content: space-between;
+  }
+  
+  &-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 4. コンポーネント
+// -----------------------------------------------------------------------------
+
+// ボタン
 .btn {
   display: inline-block;
   padding: 10px 20px;
@@ -123,344 +208,264 @@ img {
     }
   }
   
+  &-purple {
+    background-color: $color-purple;
+    border-color: $color-purple;
+    color: $color-background;
+    
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  
+  &-lg {
+    padding: 12px 30px;
+    font-size: $font-size-large;
+  }
+  
   &-sm {
     padding: 6px 15px;
     font-size: $font-size-small;
   }
-}
-
-// Section styling
-.section {
-  margin-bottom: 60px;
-  padding: 40px 0;
   
-  &-title {
-    font-size: $font-size-2xl;
-    margin-bottom: 30px;
-    text-align: center;
-    position: relative;
-    
-    &:after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      background-color: $color-primary;
-      margin: 15px auto 0;
-    }
-  }
-}
-
-// Main Visual
-.main-visual {
-  position: relative;
-  height: 600px;
-  overflow: hidden;
-  background-color: #f3f4f6;
-  
-  @media (max-width: $breakpoint-md) {
-    height: 400px;
-  }
-  
-  &-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+  &-block {
+    display: block;
     width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-  }
-  
-  &-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: $color-background;
-    text-align: center;
-    padding: 0 20px;
-    
-    .main-title {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      
-      @media (max-width: $breakpoint-md) {
-        font-size: 36px;
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        font-size: 28px;
-      }
-    }
-    
-    .sub-title {
-      font-size: $font-size-large;
-      font-weight: 400;
-      margin-bottom: 30px;
-      max-width: 800px;
-      
-      @media (max-width: $breakpoint-sm) {
-        font-size: $font-size-base;
-      }
-    }
   }
 }
 
-// Services
-.services-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
+// フォーム要素
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $color-text;
+  background-color: $color-background;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
   
-  @media (max-width: $breakpoint-lg) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: $breakpoint-sm) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.service-item {
-  text-align: center;
-  padding: 30px;
-  background-color: $color-light;
-  border-radius: 5px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .service-icon {
-    margin-bottom: 20px;
-    
-    img, svg {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-    }
-  }
-  
-  .service-title {
-    font-size: $font-size-large;
-    margin-bottom: 15px;
-  }
-  
-  .service-description {
-    margin-bottom: 20px;
+  &:focus {
+    border-color: $color-accent;
+    outline: none;
   }
 }
 
-.services-more {
-  text-align: center;
-  margin-top: 30px;
+textarea {
+  min-height: 150px;
+  resize: vertical;
 }
 
-// News
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
-  
-  @media (max-width: $breakpoint-lg) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: $breakpoint-sm) {
-    grid-template-columns: 1fr;
-  }
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
-.news-item {
+.form-group {
   margin-bottom: 20px;
 }
 
-.news-date {
-  display: block;
-  font-size: $font-size-small;
-  color: $color-secondary;
-  margin-bottom: 5px;
+// カードスタイル
+.card {
+  background-color: $color-background;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  
+  &-body {
+    padding: 20px;
+  }
+  
+  &-title {
+    font-size: $font-size-large;
+    margin-bottom: 10px;
+  }
 }
 
-.news-title {
-  font-size: $font-size-large;
-  margin-bottom: 10px;
+// アニメーション効果
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 5. レイアウトコンポーネント
+// -----------------------------------------------------------------------------
+
+// ヘッダー
+@import 'header';
+
+// フッター
+@import 'footer';
+
+// -----------------------------------------------------------------------------
+// 6. ページ固有のスタイル
+// -----------------------------------------------------------------------------
+
+// フロントページ
+@import 'front-page';
+
+// その他のページ固有スタイル（必要に応じて追加）
+// @import 'about';
+// @import 'services';
+// @import 'works';
+// @import 'contact';
+
+// -----------------------------------------------------------------------------
+// 7. WordPress固有のスタイル
+// -----------------------------------------------------------------------------
+
+// ブログ投稿
+.post {
+  margin-bottom: 40px;
+  
+  .entry-header {
+    margin-bottom: 20px;
+  }
+  
+  .entry-title {
+    margin-bottom: 10px;
+  }
+  
+  .entry-meta {
+    color: $color-secondary;
+    font-size: $font-size-small;
+    margin-bottom: 15px;
+  }
+  
+  .entry-content {
+    margin-bottom: 20px;
+  }
+}
+
+// ページネーション
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+  
+  .page-numbers {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 4px;
+    
+    &.current {
+      background-color: $color-primary;
+      color: $color-background;
+    }
+  }
+}
+
+// コメント
+.comment-list {
+  list-style: none;
+  margin: 0 0 20px;
+  
+  .comment {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border;
+  }
+  
+  .comment-meta {
+    margin-bottom: 10px;
+  }
+  
+  .comment-author {
+    font-weight: 700;
+  }
+  
+  .comment-content {
+    margin-bottom: 10px;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 8. ユーティリティクラス
+// -----------------------------------------------------------------------------
+
+// テキスト配置
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+// マージン
+.mb-0 { margin-bottom: 0; }
+.mt-0 { margin-top: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mt-1 { margin-top: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mt-4 { margin-top: 2rem; }
+
+// パディング
+.p-0 { padding: 0; }
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+// 表示・非表示
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+
+// レスポンシブ表示制御
+@media (max-width: $breakpoint-sm) {
+  .d-sm-none { display: none; }
+  .d-sm-block { display: block; }
+  .d-sm-flex { display: flex; }
+}
+
+@media (max-width: $breakpoint-md) {
+  .d-md-none { display: none; }
+  .d-md-block { display: block; }
+  .d-md-flex { display: flex; }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .d-lg-none { display: none; }
+  .d-lg-block { display: block; }
+  .d-lg-flex { display: flex; }
+}
+
+// -----------------------------------------------------------------------------
+// 9. メディアクエリ
+// -----------------------------------------------------------------------------
+
+// プリント用スタイル
+@media print {
+  .no-print { display: none; }
   
   a {
-    color: $color-text;
-    
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.news-more {
-  text-align: center;
-  margin-top: 30px;
-}
-
-// Works
-.works-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
-  
-  @media (max-width: $breakpoint-lg) {
-    grid-template-columns: repeat(2, 1fr);
+    text-decoration: underline;
   }
   
-  @media (max-width: $breakpoint-sm) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.works-more {
-  text-align: center;
-  margin-top: 30px;
-}
-
-// Mobile navigation
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  
-  @media (max-width: $breakpoint-lg) {
-    display: block;
-  }
-  
-  .hamburger {
-    display: block;
-    width: 30px;
-    height: 20px;
-    position: relative;
-    
-    span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background-color: $color-text;
-      position: absolute;
-      left: 0;
-      transition: all 0.3s ease;
-      
-      &:nth-child(1) {
-        top: 0;
-      }
-      
-      &:nth-child(2) {
-        top: 9px;
-      }
-      
-      &:nth-child(3) {
-        top: 18px;
-      }
-    }
-  }
-  
-  &.active {
-    .hamburger {
-      span {
-        &:nth-child(1) {
-          transform: rotate(45deg);
-          top: 9px;
-        }
-        
-        &:nth-child(2) {
-          opacity: 0;
-        }
-        
-        &:nth-child(3) {
-          transform: rotate(-45deg);
-          top: 9px;
-        }
-      }
-    }
-  }
-}
-
-.mobile-navigation {
-  display: none;
-  
-  @media (max-width: $breakpoint-lg) {
-    display: block;
-    position: fixed;
-    top: $header-height;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - #{$header-height});
-    background-color: $color-background;
-    padding: 20px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 100;
-    overflow-y: auto;
-    
-    &.active {
-      transform: translateX(0);
-    }
-    
-    .nav-menu {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      
-      li {
-        margin-bottom: 15px;
-        
-        a {
-          display: block;
-          padding: 10px 0;
-          color: $color-text;
-          text-decoration: none;
-          font-size: $font-size-large;
-          border-bottom: 1px solid $color-border;
-        }
-        
-        &.contact-button {
-          margin-top: 20px;
-          
-          a {
-            background-color: $color-text;
-            color: $color-background;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-align: center;
-            border-bottom: none;
-          }
-        }
-      }
-    }
-  }
-}
-
-// ナビゲーションのレスポンシブ対応を強化
-@media (max-width: 1100px) and (min-width: $breakpoint-lg) {
-  .main-navigation {
-    width: auto;
-    
-    .nav-menu {
-      gap: 20px;
-    }
+  .container {
+    max-width: 100%;
+    padding: 0;
   }
 }
