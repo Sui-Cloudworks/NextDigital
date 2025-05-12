@@ -1,137 +1,195 @@
+// フッタースタイル
+// ------------------------------
+
 .site-footer {
-  background-color: $color-primary;
-  color: $color-background;
+  background-color: #111827; // ダークカラー背景
+  color: #FFFFFF;
   padding: 60px 0 30px;
   
-  a {
-    color: $color-light;
-    
-    &:hover {
-      color: $color-background;
-    }
-  }
-  
+  // コンテナ
   .container {
     width: 100%;
-    max-width: $container-width;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 15px;
   }
   
-  .footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  // フッターグリッド（4列レイアウト）
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
     
-    @media (max-width: $breakpoint-md) {
-      flex-direction: column;
-      text-align: center;
+    // タブレット表示（2列）
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // モバイル表示（1列）
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
     }
   }
   
-  .footer-logo {
+  // 各列共通スタイル
+  .footer-column {
+    min-width: 0; // テキストのはみ出しを防止
+  }
+  
+  // 見出し
+  .footer-title {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
     margin-bottom: 20px;
+    position: relative;
     
-    a {
-      display: block;
-    }
-    
-    img {
-      display: block;
-      max-height: 38px;
-      width: auto;
-      filter: brightness(0) invert(1); // SVGロゴを白色に変換
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      margin: 0 auto 20px;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background-color: $color-primary-purple;
     }
   }
   
-  .footer-navigation {
-    margin-bottom: 20px;
+  // 全てのリンク共通スタイル
+  a {
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: color 0.3s ease;
     
-    .footer-menu {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
+    &:hover {
+      color: #FFFFFF;
+    }
+  }
+  
+  // ロゴの列
+  .footer-branding {
+    .footer-logo {
+      margin-bottom: 20px;
       
-      @media (max-width: $breakpoint-md) {
-        justify-content: center;
+      a {
+        display: block;
       }
       
-      li {
-        margin: 0 15px 10px 0;
+      img {
+        display: block;
+        max-height: 38px;
+        width: auto;
+        // フィルターを削除し、元のロゴカラーを表示
+        filter: none;
+      }
+    }
+    
+    .footer-description {
+      color: #9CA3AF;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      
+      .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        color: #9CA3AF;
         
-        &:last-child {
-          margin-right: 0;
+        i {
+          font-size: 16px;
+        }
+        
+        &:hover {
+          color: #FFFFFF;
         }
       }
     }
   }
   
-  .footer-info, .footer-contact {
-    margin-bottom: 20px;
-    
-    p {
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      text-align: center;
-    }
-  }
-  
+  // リンクリスト
   .footer-links {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     
     li {
-      margin-bottom: 5px;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      margin-bottom: 10px;
       
-      li {
-        margin: 0 10px 5px;
+      a {
+        color: #9CA3AF;
+        font-size: 14px;
+        
+        &:hover {
+          color: #FFFFFF;
+        }
       }
     }
   }
   
+  // お問い合わせ情報
   .footer-contact {
-    .btn {
-      color: $color-background;
-      border-color: $color-background;
-      
-      &:hover {
-        background-color: $color-background;
-        color: $color-primary;
+    .footer-address,
+    .footer-tel,
+    .footer-email {
+      color: #9CA3AF;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      font-style: normal;
+    }
+    
+    .footer-tel,
+    .footer-email {
+      a {
+        color: #9CA3AF;
+        
+        &:hover {
+          color: #FFFFFF;
+        }
       }
     }
   }
   
-  .copyright {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  // フッター下部（コピーライトと法的リンク）
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-top: 20px;
-    text-align: center;
-    font-size: $font-size-small;
-  }
-  
-  .footer-legal {
-    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     
-    a {
-      margin: 0 10px;
-      font-size: $font-size-small;
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+    
+    .copyright {
+      color: #9CA3AF;
+      font-size: 14px;
+    }
+    
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+      
+      a {
+        color: #9CA3AF;
+        font-size: 14px;
+        
+        &:hover {
+          color: #FFFFFF;
+        }
+      }
     }
   }
 }
