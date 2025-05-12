@@ -328,12 +328,10 @@ label {
 
 // フロントページ
 @import 'front-page';
-
-// その他のページ固有スタイル（必要に応じて追加）
-// @import 'about';
-// @import 'services';
-// @import 'works';
-// @import 'contact';
+@import 'about';
+@import 'services';
+@import 'works';
+@import 'contact';
 
 // -----------------------------------------------------------------------------
 // 7. WordPress固有のスタイル

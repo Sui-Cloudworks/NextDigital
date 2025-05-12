@@ -1,4 +1,408 @@
-// 会社情報ページのスタイル
-.about-section {
-  margin-bottom: 60px;
+// 会社情報ページ専用スタイル
+// ------------------------------
+
+// 会社情報ヒーローセクション
+.about-hero {
+  background-color: #FAF5FF;
+  padding: 80px 0;
+  height: 312px;
+  display: flex;
+  align-items: center;
+  
+  .container-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .about-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .about-description {
+    max-width: 768px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #4B5563;
+  }
+}
+
+// 会社概要セクション
+.company-overview {
+  padding: 80px 0;
+  
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .company-philosophy {
+    max-width: 896px;
+    margin: 0 auto;
+    
+    // 3列グリッド
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid $color-border;
+      border-left: 1px solid $color-border;
+      border-right: 1px solid $color-border;
+      margin-bottom: 30px;
+    }
+    
+    .philosophy-item {
+      padding: 32px;
+      border-right: 1px solid $color-border;
+      
+      &:last-child {
+        border-right: none;
+      }
+    }
+    
+    .philosophy-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .philosophy-description {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4B5563;
+    }
+    
+    // 会社情報テーブル
+    .company-info-table {
+      width: 100%;
+      border-collapse: collapse;
+      
+      th, td {
+        padding: 16px 32px;
+        font-size: 16px;
+        border: 1px solid $color-border;
+      }
+      
+      th {
+        width: 200px; // 左列の幅を企業理念の列と合わせる
+        background-color: #E5E7EB;
+        font-weight: 700;
+        text-align: left;
+      }
+      
+      td {
+        background-color: $color-background;
+        font-weight: 400;
+        
+        ul {
+          margin: 0;
+          padding-left: 20px;
+          
+          li {
+            margin-bottom: 5px;
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // レスポンシブ対応
+  @media (max-width: $breakpoint-md) {
+    .philosophy-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .philosophy-item {
+      border-right: none !important;
+      border-bottom: 1px solid $color-border;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    
+    .company-info-table {
+      th, td {
+        display: block;
+        width: 100%;
+      }
+      
+      th {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+// 沿革セクション
+.company-history {
+  background-color: #F9FAFB;
+  padding: 80px 0;
+  height: 1180px;
+  
+  .container-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  
+  .history-container {
+    max-width: 896px;
+    height: 936px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  
+  .history-timeline {
+    position: relative;
+    padding-left: 24px;
+    border-left: 2px solid #E9D5FF;
+    height: 100%;
+  }
+  
+  .timeline-item {
+    position: relative;
+    margin-bottom: 48px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:before {
+      content: '';
+      position: absolute;
+      left: -31px; // 線の位置から少し左に
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #E9D5FF;
+      border: 2px solid #9333EA;
+    }
+  }
+  
+  .timeline-date {
+    color: #6B21A8;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .timeline-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .timeline-description {
+    color: $color-secondary;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+}
+
+// アクセスセクション
+.company-access {
+  padding: 80px 0;
+  
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  
+  .access-container {
+    max-width: 896px;
+    margin: 0 auto;
+  }
+  
+  .access-map {
+    width: 100%;
+    height: 384px;
+    margin-bottom: 20px;
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+  
+  .access-office-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .access-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  
+  .access-item {
+    display: flex;
+    margin-bottom: 20px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .access-icon {
+    margin-right: 15px;
+    color: $color-primary-purple;
+    font-size: 20px;
+  }
+  
+  .access-subtitle {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  .access-text {
+    color: $color-secondary;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  
+  .access-routes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      color: $color-secondary;
+      font-size: 16px;
+      line-height: 1.5;
+      
+      &:before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: $color-primary-purple;
+      }
+    }
+  }
+  
+  .access-contact-link {
+    display: inline-block;
+    color: $color-primary-purple;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 10px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  // レスポンシブ対応
+  @media (max-width: $breakpoint-md) {
+    .access-info {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: $breakpoint-lg) {
+  .about-hero {
+    padding: 60px 0;
+    
+    .about-title {
+      font-size: 36px;
+    }
+  }
+  
+  .company-overview, .company-history, .company-access {
+    .section-title {
+      font-size: 26px;
+    }
+  }
+  
+  .company-history {
+    height: auto;
+    padding-bottom: 50px;
+    
+    .history-container {
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .about-hero {
+    height: auto;
+    padding: 40px 0;
+    
+    .about-title {
+      font-size: 32px;
+    }
+    
+    .about-description {
+      font-size: 15px;
+    }
+  }
+  
+  .company-overview, .company-history, .company-access {
+    padding: 50px 0;
+    
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+  }
+  
+  .company-philosophy {
+    .philosophy-item {
+      padding: 20px;
+    }
+    
+    .company-info-table {
+      th, td {
+        padding: 12px 15px;
+      }
+    }
+  }
+  
+  .company-history {
+    .history-container {
+      padding: 0 20px;
+    }
+    
+    .timeline-title {
+      font-size: 18px;
+    }
+  }
+  
+  .company-access {
+    .access-map {
+      height: 250px;
+    }
+  }
 }
