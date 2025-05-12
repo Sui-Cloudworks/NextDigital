@@ -1,0 +1,56 @@
+// アニメーション効果
+
+// フェードイン
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 遅延効果
+@for $i from 1 through 5 {
+  .delay-#{$i} {
+    transition-delay: #{$i * 0.2}s;
+  }
+}
+
+// ズームイン
+.zoom-in {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  
+  &.visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// 左からスライドイン
+.slide-in-left {
+  transform: translateX(-50px);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  
+  &.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// 右からスライドイン
+.slide-in-right {
+  transform: translateX(50px);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  
+  &.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

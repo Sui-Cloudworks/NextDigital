@@ -12,11 +12,9 @@
 <header class="site-header">
     <div class="header-container">
         <div class="site-logo">
-            <?php if (has_custom_logo()) : ?>
-                <?php the_custom_logo(); ?>
-            <?php else : ?>
-                <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
-            <?php endif; ?>
+            <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.svg" alt="<?php bloginfo('name'); ?>" width="200" height="47">
+            </a>
         </div>
 
         <nav class="main-navigation">
