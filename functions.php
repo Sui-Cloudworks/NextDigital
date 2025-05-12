@@ -55,6 +55,9 @@ function nextdigital_scripts() {
     // Enqueue Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap', array(), null);
     
+    // Font Awesome
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
+    
     // メインのスタイルシート - コンパイルされたCSSを直接読み込む
     wp_enqueue_style('nextdigital-style', get_template_directory_uri() . '/css/style.css', array(), '1.0.0' . time());
     
@@ -63,6 +66,9 @@ function nextdigital_scripts() {
     
     // JavaScript
     wp_enqueue_script('nextdigital-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.0.0', true);
+    
+    // カスタムスクリプト
+    wp_enqueue_script('nextdigital-custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.0.0', true);
     
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -216,25 +222,3 @@ if (class_exists('Wp_Scss_Settings')) {
     // Force compile on every page load during development
     add_filter('wp_scss_needs_compiling', '__return_true');
 }
-
-function nextdigital_scripts() {
-    // Enqueue Google Fonts
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap', array(), null);
-    
-    // Font Awesome
-    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
-    
-    // メインのスタイルシート - コンパイルされたCSSを直接読み込む
-    wp_enqueue_style('nextdigital-style', get_template_directory_uri() . '/css/style.css', array(), '1.0.0' . time());
-    
-    // テーマ定義用の元のstyle.cssも読み込む（テーマ情報のみ）
-    wp_enqueue_style('nextdigital-original', get_stylesheet_uri(), array(), '1.0.0');
-    
-    // JavaScript
-    wp_enqueue_script('nextdigital-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.0.0', true);
-    
-    if (is_singular() && comments_open() && get_option('thread_comments')) {
-        wp_enqueue_script('comment-reply');
-    }
-}
-add_action('wp_enqueue_scripts', 'nextdigital_scripts');
