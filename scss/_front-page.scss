@@ -394,19 +394,22 @@
   }
   
   .contact-features {
-    max-width: 512px;
-    height: 240px;
-    background-color: $color-background;
+    width: 512px;
+    height: 240px; // 高さを240pxに固定
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; // 子要素を均等に配置
+    border-radius: 8px;
+    padding: 32px;
+    background-color: #FFFFFF;
+    box-sizing: border-box; // パディングを含めた高さにする
   }
   
   .contact-feature {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     
     i {
       color: $color-primary-purple;
@@ -417,15 +420,27 @@
       color: #1F2937;
       font-size: 16px;
       background-color: $color-background;
-      padding: 10px 15px;
+      padding: 5px 10px;
       border-radius: 8px;
       width: 100%;
     }
   }
   
   .btn-primary {
-    margin-top: 20px;
-    align-self: center;
+    width: 448px;
+    height: 48px;
+    margin: 0 auto; // 上下の余白を削除し、左右のみ自動
+    background-color: $color-primary-purple;
+    border-color: $color-primary-purple;
+    color: $color-background;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }
 
@@ -509,8 +524,13 @@
   
   .contact-section {
     .contact-features {
-      height: auto;
-      gap: 20px;
+      width: 100%;
+      max-width: 512px;
+    }
+    
+    .btn-primary {
+      width: 100%;
+      max-width: 448px;
     }
   }
 }
