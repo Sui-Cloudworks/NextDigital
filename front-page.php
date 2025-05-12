@@ -16,8 +16,8 @@
         <section class="about-section">
             <div class="container-inner">
                 <div class="section-header">
-                    <h2 class="section-title">Nexus Digital<br>について</h2>
-                    <p class="section-description">私たちは最新のテクノロジーとデジタルマーケティングのノウハウを活かして、<br>お客様のビジネス成長を総合的にサポートします。</p>
+                    <h2 class="section-title">Nexus Digitalについて</h2>
+                    <p class="section-description">私たちは、デジタルトランスフォーメーションを通じて企業の成長をサポートする総合デジタルソリューション企業です。最新テクノロジーと創造的なアイデアで、お客様のビジネスに新たな価値を創造します。</p>
                 </div>
                 
                 <div class="feature-blocks">
@@ -145,7 +145,7 @@
                             <div class="work-image">
                                 <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/work-1.jpg" alt="ECサイトリニューアル">
                             </div>
-                            <div class="work-category">Webサイト制作</div>
+                            <div class="work-category">DX戦略コンサルティング</div>
                             <h3 class="work-title">大手アパレルブランドECサイトリニューアル</h3>
                             <div class="work-description">顧客体験を向上させるUI/UXデザインと最新のテクノロジーを活用し、売上向上に貢献しました。</div>
                             <a href="#" class="link-more">詳細を見る →</a>
