@@ -1,6 +1,13 @@
-// フロントページ専用スタイル（_front-page.scss）
+// フロントページ専用スタイル
+// ------------------------------
+
+// 変数の利用（$color-purple などが変数ファイルで定義されていることを前提とします）
+// もし _variables.scss に以下の変数が含まれていない場合は追加してください
+// $color-purple: #9333EA;
+// $color-light-purple: #F3E8FF;
 
 // メインビジュアル
+// ------------------------------
 .main-visual {
   position: relative;
   width: 100%;
@@ -10,6 +17,7 @@
   background-position: center;
   overflow: hidden;
   
+  // オーバーレイ
   &::before {
     content: '';
     position: absolute;
@@ -20,14 +28,17 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
   
+  // コンテンツ（テキストとボタン）
   &-content {
     position: absolute;
-    top: 344px;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
     color: $color-background;
     z-index: 2;
+    padding: 0 20px;
     
     .main-title {
       font-size: 48px;
@@ -42,9 +53,9 @@
     }
     
     .btn-primary {
-      background-color: #9333EA;
-      border-color: #9333EA;
-      color: #FFFFFF;
+      background-color: $color-purple;
+      border-color: $color-purple;
+      color: $color-background;
       font-weight: 300;
       padding: 12px 30px;
       
@@ -56,6 +67,7 @@
 }
 
 // 共通コンテナスタイル
+// ------------------------------
 .container-inner {
   width: 100%;
   max-width: 1280px;
@@ -63,7 +75,8 @@
   padding: 0 15px;
 }
 
-// セクションのヘッダー
+// 共通セクションスタイル
+// ------------------------------
 .section-header {
   text-align: center;
   margin-bottom: 60px;
@@ -82,10 +95,35 @@
   }
 }
 
+// 共通リンクスタイル
+// ------------------------------
+.link-more {
+  color: $color-purple;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn-primary {
+  background-color: $color-purple;
+  border-color: $color-purple;
+  color: $color-background;
+  font-weight: 300;
+  padding: 12px 30px;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 // Nexus Digitalについてセクション
+// ------------------------------
 .about-section {
   padding: 100px 0;
   
+  // 特徴ブロック
   .feature-blocks {
     display: flex;
     justify-content: space-between;
@@ -114,7 +152,7 @@
   .feature-icon {
     width: 80px;
     height: 80px;
-    background-color: #F3E8FF;
+    background-color: $color-light-purple;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -123,7 +161,7 @@
     
     i {
       font-size: 32px;
-      color: #9333EA;
+      color: $color-purple;
     }
   }
   
@@ -140,20 +178,11 @@
   
   .about-more {
     text-align: center;
-    
-    .link-more {
-      color: #9333EA;
-      text-decoration: none;
-      font-weight: 300;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
 // サービスセクション
+// ------------------------------
 .services-section {
   padding: 100px 0;
   background-color: #F9FAFB;
@@ -205,32 +234,15 @@
   .link-more {
     display: block;
     margin: 0 20px 20px;
-    color: #9333EA;
-    text-decoration: none;
-    
-    &:hover {
-      text-decoration: underline;
-    }
   }
   
   .services-more {
     text-align: center;
-    
-    .btn-primary {
-      background-color: #9333EA;
-      border-color: #9333EA;
-      color: #FFFFFF;
-      font-weight: 300;
-      padding: 12px 30px;
-      
-      &:hover {
-        opacity: 0.9;
-      }
-    }
   }
 }
 
 // 実績セクション
+// ------------------------------
 .works-section {
   padding: 100px 0;
   
@@ -273,8 +285,8 @@
   .work-category {
     display: inline-block;
     padding: 4px 10px;
-    background-color: #F3E8FF;
-    color: #9333EA;
+    background-color: $color-light-purple;
+    color: $color-purple;
     border-radius: 4px;
     font-size: 14px;
     margin-bottom: 10px;
@@ -292,21 +304,13 @@
     margin-bottom: 15px;
   }
   
-  .link-more {
-    color: #9333EA;
-    text-decoration: none;
-    
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  
   .works-more {
     text-align: center;
   }
 }
 
 // お知らせセクション
+// ------------------------------
 .news-section {
   padding: 100px 0;
   background-color: #F9FAFB;
@@ -346,8 +350,8 @@
   .news-tag {
     flex-shrink: 0;
     padding: 4px 12px;
-    background-color: #F3E8FF;
-    color: #9333EA;
+    background-color: $color-light-purple;
+    color: $color-purple;
     border-radius: 9999px;
     font-size: 14px;
     margin-right: 15px;
@@ -364,42 +368,33 @@
       text-decoration: none;
       
       &:hover {
-        color: #9333EA;
+        color: $color-purple;
       }
     }
   }
   
   .news-link {
     flex-shrink: 0;
-    color: #9333EA;
+    color: $color-purple;
     text-decoration: none;
     font-size: 18px;
   }
   
   .news-more {
     text-align: center;
-    
-    .link-more {
-      color: #9333EA;
-      text-decoration: none;
-      font-weight: 300;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
 // お問い合わせセクション
+// ------------------------------
 .contact-section {
   padding: 80px 0;
   background-color: #111827;
-  color: #FFFFFF;
+  color: $color-background;
   
   .section-header {
     .section-title, .section-description {
-      color: #FFFFFF;
+      color: $color-background;
     }
   }
   
@@ -418,14 +413,14 @@
     gap: 15px;
     
     i {
-      color: #9333EA;
+      color: $color-purple;
       font-size: 20px;
     }
     
     span {
       color: #1F2937;
       font-size: 16px;
-      background-color: #FFFFFF;
+      background-color: $color-background;
       padding: 10px 15px;
       border-radius: 8px;
       width: 100%;
@@ -435,24 +430,19 @@
   .btn-primary {
     margin-top: 20px;
     align-self: center;
-    background-color: #9333EA;
-    border-color: #9333EA;
-    color: #FFFFFF;
-    font-weight: 300;
-    padding: 12px 30px;
-    
-    &:hover {
-      opacity: 0.9;
-    }
   }
 }
 
 // レスポンシブ対応
+// ------------------------------
+
+// 大きな画面（タブレット横向きなど）
 @media (max-width: $breakpoint-xl) {
   .container-inner {
     padding: 0 20px;
   }
   
+  // 3カラムレイアウトを2カラムに変更
   .about-section, .services-section, .works-section {
     .feature-blocks, .service-blocks, .works-blocks {
       flex-wrap: wrap;
@@ -466,13 +456,12 @@
   }
 }
 
+// 中型画面（タブレット縦向きなど）
 @media (max-width: $breakpoint-md) {
   .main-visual {
     height: 600px;
     
     &-content {
-      top: 200px;
-      
       .main-title {
         font-size: 36px;
       }
@@ -493,6 +482,7 @@
     }
   }
   
+  // 2カラムレイアウトを1カラムに変更
   .about-section, .services-section, .works-section {
     .feature-block, .service-block, .work-block {
       width: 100%;
@@ -529,13 +519,12 @@
   }
 }
 
+// 小型画面（スマートフォンなど）
 @media (max-width: $breakpoint-sm) {
   .main-visual {
     height: 500px;
     
     &-content {
-      top: 150px;
-      
       .main-title {
         font-size: 28px;
       }
@@ -546,18 +535,18 @@
     }
   }
   
+  // セクションの余白を調整
   .about-section, .services-section, .works-section, .news-section, .contact-section {
     padding: 60px 0;
   }
 }
 
-// 追加のレスポンシブ調整
+// 超小型画面（小型スマートフォンなど）
 @media (max-width: 480px) {
   .main-visual {
     height: 400px;
     
     &-content {
-      top: 120px;
       padding: 0 15px;
       
       .main-title {
@@ -587,6 +576,7 @@
     }
   }
   
+  // 特徴ブロックのスタイル調整
   .feature-block {
     padding: 30px 20px;
     
@@ -608,6 +598,7 @@
     }
   }
   
+  // サービスブロックのスタイル調整
   .service-block {
     .service-image {
       height: 180px;
@@ -622,6 +613,7 @@
     }
   }
   
+  // 実績ブロックのスタイル調整
   .work-block {
     .work-image {
       height: 180px;
@@ -636,6 +628,7 @@
     }
   }
   
+  // お知らせアイテムのスタイル調整
   .news-section {
     .news-item {
       padding: 12px;
@@ -650,6 +643,7 @@
     }
   }
   
+  // お問い合わせセクションのスタイル調整
   .contact-section {
     .contact-feature {
       i {
