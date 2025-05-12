@@ -1,40 +1,39 @@
-/**
- * Custom scripts for the theme
- */
-(function($) {
-    // ドキュメント読み込み完了時
-    $(document).ready(function() {
-        
-        // スムーズスクロール
-        $('a[href^="#"]').on('click', function(e) {
-            e.preventDefault();
-            
-            var target = this.hash;
-            var $target = $(target);
-            
-            if ($target.length) {
-                $('html, body').animate({
-                    'scrollTop': $target.offset().top - 80
-                }, 800, 'swing');
-            }
-        });
-        
-        // アニメーション効果
-        $(window).on('scroll', function() {
-            $('.fade-in').each(function() {
-                var position = $(this).offset().top;
-                var scroll = $(window).scrollTop();
-                var windowHeight = $(window).height();
-                
-                if (scroll > position - windowHeight + 100) {
-                    $(this).addClass('visible');
-                }
-            });
-        });
-        
-        // 初期読み込み時のアニメーション
-        setTimeout(function() {
-            $(window).trigger('scroll');
-        }, 100);
+// js/custom.js またはナビゲーションスクリプトに追加
+document.addEventListener('DOMContentLoaded', function() {
+  // アンカーリンクをクリックした時の処理
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (!targetElement) return;
+      
+      const headerHeight = document.querySelector('.site-header').offsetHeight;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      
+      window.scrollTo({
+        top: targetPosition - headerHeight - 20, // ヘッダーの高さ + 余白
+        behavior: 'smooth'
+      });
     });
-})(jQuery);
+  });
+  
+  // URLにハッシュがある場合の処理（ページ読み込み時）
+  if (window.location.hash) {
+    const headerHeight = document.querySelector('.site-header').offsetHeight;
+    const targetElement = document.querySelector(window.location.hash);
+    
+    if (targetElement) {
+      setTimeout(function() {
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: targetPosition - headerHeight - 20,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  }
+});

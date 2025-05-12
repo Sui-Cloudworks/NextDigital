@@ -102,9 +102,16 @@ ul, ol {
 }
 
 // サイトコンテンツ
-.site-content {
-  padding: 40px 0;
+.site-content, .site-footer {
+  width: 100%;
+  max-width: $site-max-width;
+  margin: 0 auto;
 }
+
+// .site-content {
+//   padding-top: calc(#{$header-height} + 20px); // ヘッダーの高さ + 余白
+//   padding-bottom: 40px;
+// }
 
 // メイン
 .site-main {
