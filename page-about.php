@@ -96,102 +96,99 @@ get_header();
                 </div>
                 
                 <table class="company-info-table">
-                    <?php if (function_exists('get_field')): ?>
-                        <?php if (get_field('company_name')): ?>
-                        <tr>
-                            <th>会社名</th>
-                            <td><?php echo esc_html(get_field('company_name')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_established')): ?>
-                        <tr>
-                            <th>設立</th>
-                            <td><?php echo esc_html(get_field('company_established')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_ceo')): ?>
-                        <tr>
-                            <th>代表取締役</th>
-                            <td><?php echo esc_html(get_field('company_ceo')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_capital')): ?>
-                        <tr>
-                            <th>資本金</th>
-                            <td><?php echo esc_html(get_field('company_capital')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_employees')): ?>
-                        <tr>
-                            <th>従業員数</th>
-                            <td><?php echo esc_html(get_field('company_employees')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_business')): ?>
-                        <tr>
-                            <th>事業内容</th>
-                            <td><?php echo wp_kses_post(get_field('company_business')); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('company_address')): ?>
-                        <tr>
-                            <th>所在地</th>
-                            <td><?php echo nl2br(esc_html(get_field('company_address'))); ?></td>
-                        </tr>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <!-- ACFがない場合のデフォルト表示 -->
-                        <tr>
-                            <th>会社名</th>
-                            <td>株式会社Nexus Digital （ネクサスデジタル）</td>
-                        </tr>
-                        <tr>
-                            <th>設立</th>
-                            <td>2015年4月1日</td>
-                        </tr>
-                        <tr>
-                            <th>代表取締役</th>
-                            <td>山田 太郎</td>
-                        </tr>
-                        <tr>
-                            <th>資本金</th>
-                            <td>1億円</td>
-                        </tr>
-                        <tr>
-                            <th>従業員数</th>
-                            <td>120名（2023年4月現在）</td>
-                        </tr>
-                        <tr>
-                            <th>事業内容</th>
-                            <td>
-                                <ul>
-                                    <li>デジタルマーケティング</li>
-                                    <li>Webサイト・アプリケーション開発</li>
-                                    <li>DXコンサルティング</li>
-                                    <li>データ分析・活用支援</li>
-                                    <li>クラウドインフラ構築・運用</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>所在地</th>
-                            <td>
-                                〒106-0032<br>
-                                東京都港区六本木6-10-1<br>
-                                六本木森ビルタワー 23F
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </table>
-            </div>
-        </div>
-    </section>
+    <tr>
+                    <th>会社名</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_name')) {
+                            echo esc_html(get_field('company_name'));
+                        } else {
+                            echo '株式会社Nexus Digital （ネクサスデジタル）';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>設立</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_established')) {
+                            echo esc_html(get_field('company_established'));
+                        } else {
+                            echo '2015年4月1日';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>代表取締役</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_ceo')) {
+                            echo esc_html(get_field('company_ceo'));
+                        } else {
+                            echo '山田 太郎';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>資本金</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_capital')) {
+                            echo esc_html(get_field('company_capital'));
+                        } else {
+                            echo '1億円';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>従業員数</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_employees')) {
+                            echo esc_html(get_field('company_employees'));
+                        } else {
+                            echo '120名（2023年4月現在）';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>事業内容</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_business')) {
+                            echo wp_kses_post(get_field('company_business'));
+                        } else {
+                            ?>
+                            <ul>
+                                <li>デジタルマーケティング</li>
+                                <li>Webサイト・アプリケーション開発</li>
+                                <li>DXコンサルティング</li>
+                                <li>データ分析・活用支援</li>
+                                <li>クラウドインフラ構築・運用</li>
+                            </ul>
+                            <?php
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>所在地</th>
+                    <td>
+                        <?php
+                        if (function_exists('get_field') && get_field('company_address')) {
+                            echo nl2br(esc_html(get_field('company_address')));
+                        } else {
+                            echo '〒106-0032<br>東京都港区六本木6-10-1<br>六本木森ビルタワー 23F';
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
     <!-- 沿革セクション -->
     <section class="company-history">
@@ -217,56 +214,56 @@ get_header();
                         <div class="timeline-item">
                             <div class="timeline-date">2015年4月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">会社設立</h3>
-                                <p class="timeline-description">東京都渋谷区に株式会社Nexus Digitalを設立。Webサイト制作とデジタルマーケティング事業を開始。</p>
+                                <h3 class="timeline-title">株式会社Nexus Digital設立</h3>
+                                <p class="timeline-description">東京・渋谷にオフィスを構え、Webサイト制作とデジタルマーケティング事業を開始。</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="timeline-date">2016年7月</div>
+                            <div class="timeline-date">2017年6月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">事業拡大</h3>
-                                <p class="timeline-description">モバイルアプリケーション開発事業を開始。開発チームを拡充。</p>
+                                <h3 class="timeline-title">システム開発事業部を設立</h3>
+                                <p class="timeline-description">Webアプリケーション開発やモバイルアプリ開発など</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="timeline-date">2017年10月</div>
+                            <div class="timeline-date">2018年10月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">オフィス移転</h3>
-                                <p class="timeline-description">事業拡大に伴い、東京都港区の現在のオフィスに移転。</p>
+                                <h3 class="timeline-title">大阪支社を開設</h3>
+                                <p class="timeline-description">関西地域のお客様へのサービス提供体制を強化。</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="timeline-date">2018年5月</div>
+                            <div class="timeline-date">2020年3月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">資本金増資</h3>
-                                <p class="timeline-description">資本金を5,000万円に増資。経営基盤を強化。</p>
+                                <h3 class="timeline-title">DX戦略コンサルティング事業を開始</h3>
+                                <p class="timeline-description">企業のデジタルトランスフォーメーションを総合的に支援するコンサルティングサービスを開始</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="timeline-date">2021年4月</div>
+                            <div class="timeline-date">2021年9月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">データ分析事業部設立</h3>
-                                <p class="timeline-description">AI・データ分析専門の事業部を設立。データドリブン経営支援サービスを開始。</p>
+                                <h3 class="timeline-title">資本金を1億円に増資</h3>
+                                <p class="timeline-description">事業拡大に伴い、資本金を1億円に増資。</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="timeline-date">2022年9月</div>
+                            <div class="timeline-date">22022年7月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">資本金増資</h3>
-                                <p class="timeline-description">資本金を1億円に増資。大型プロジェクトへの対応力を強化。</p>
+                                <h3 class="timeline-title">福岡支社を開設</h3>
+                                <p class="timeline-description">九州地域のお客様へのサービス提供体制を強化</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
                             <div class="timeline-date">2023年1月</div>
                             <div class="timeline-content">
-                                <h3 class="timeline-title">クラウド事業強化</h3>
-                                <p class="timeline-description">クラウドインフラ構築・運用支援事業を強化。専門チームを編成。</p>
+                                <h3 class="timeline-title">本社を六本木ヒルズに移転</h3>
+                                <p class="timeline-description">事業拡大に伴い、本社を六本木ヒルズに移転。</p>
                             </div>
                         </div>
                     </div>
