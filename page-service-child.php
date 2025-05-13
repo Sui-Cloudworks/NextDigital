@@ -79,7 +79,7 @@ $default_hero_description = 'お客様のビジネス課題を解決するため
                     <?php if (!empty($service_image)) : ?>
                         <img src="<?php echo esc_url($service_image['url']); ?>" alt="<?php echo esc_attr($service_image['alt']); ?>">
                     <?php else : ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/service-<?php echo esc_attr($current_slug); ?>.jpg" alt="<?php echo esc_attr($service_title); ?>">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/service/<?php echo esc_attr($current_slug); ?>.jpg" alt="<?php echo esc_attr($service_title); ?>">
                     <?php endif; ?>
                 </div>
             </div>
@@ -221,14 +221,6 @@ $default_hero_description = 'お客様のビジネス課題を解決するため
     get_template_part('template-parts/contact-cta', null, $contact_args);
     ?>
 
-    <!-- 親サービスページへのリンク -->
-    <div class="back-to-services">
-        <div class="container">
-            <a href="<?php echo home_url('/services'); ?>" class="btn btn-outline">
-                <i class="arrow-left"></i> サービス一覧に戻る
-            </a>
-        </div>
-    </div>
 </main>
 
 <?php get_footer(); ?>

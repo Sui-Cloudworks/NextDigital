@@ -17,10 +17,10 @@ $service_title = get_the_title();
 $hero_description = 'データと分析に基づいた効果的なマーケティング戦略で、お客様のビジネス成長を支援します。';
 
 // トップセクションのコンテンツ
-$overview_title = 'データドリブンな マーケティング戦略';
+$overview_title = 'データドリブンな<br>マーケティング戦略';
 $overview_description_1 = 'Nexus Digitalのデジタルマーケティングサービスは、データ分析に基づいた科学的アプローチを採用しています。お客様のビジネス目標や市場環境を徹底的に分析し、最適なマーケティング戦略を立案・実行します。';
 $overview_description_2 = 'SEO対策、コンテンツマーケティング、SNS運用、広告運用など、多様なチャネルを活用した統合的なマーケティング施策により、お客様のビジネス成長を強力にサポートします。';
-$overview_image = get_template_directory_uri() . '/images/service-marketing.jpg';
+$overview_image = get_template_directory_uri() . '/images/service/service-marketing.jpg';
 
 // ACFフィールドからの値取得（ACFが有効な場合）
 if (function_exists('get_field')) {
@@ -40,7 +40,7 @@ if (function_exists('get_field')) {
     if (!empty($acf_overview_image)) $overview_image = $acf_overview_image['url'];
 }
 
-// 提供サービス
+// 提供サービス（固定）
 $features = array(
     array(
         'icon' => 'fas fa-arrow-up',
@@ -88,11 +88,67 @@ $features = array(
     )
 );
 
-// ACFから提供サービスを取得（設定されている場合）
-if (function_exists('get_field') && get_field('features', $page_id)) {
-    $acf_features = get_field('features', $page_id);
-    if (!empty($acf_features) && is_array($acf_features)) {
-        $features = $acf_features;
+// ACFの個別フィールド対応（無料版用）
+if (function_exists('get_field')) {
+    // Feature 1
+    if (get_field('feature1_title', $page_id)) {
+        $features[0]['title'] = get_field('feature1_title', $page_id);
+    }
+    if (get_field('feature1_description', $page_id)) {
+        $features[0]['description'] = get_field('feature1_description', $page_id);
+    }
+    if (get_field('feature1_icon', $page_id)) {
+        $features[0]['icon'] = get_field('feature1_icon', $page_id);
+    }
+    if (get_field('feature1_points', $page_id)) {
+        // カンマ区切りのテキストを配列に変換
+        $points_text = get_field('feature1_points', $page_id);
+        $features[0]['points'] = array_map('trim', explode(',', $points_text));
+    }
+    
+    // Feature 2
+    if (get_field('feature2_title', $page_id)) {
+        $features[1]['title'] = get_field('feature2_title', $page_id);
+    }
+    if (get_field('feature2_description', $page_id)) {
+        $features[1]['description'] = get_field('feature2_description', $page_id);
+    }
+    if (get_field('feature2_icon', $page_id)) {
+        $features[1]['icon'] = get_field('feature2_icon', $page_id);
+    }
+    if (get_field('feature2_points', $page_id)) {
+        $points_text = get_field('feature2_points', $page_id);
+        $features[1]['points'] = array_map('trim', explode(',', $points_text));
+    }
+    
+    // Feature 3
+    if (get_field('feature3_title', $page_id)) {
+        $features[2]['title'] = get_field('feature3_title', $page_id);
+    }
+    if (get_field('feature3_description', $page_id)) {
+        $features[2]['description'] = get_field('feature3_description', $page_id);
+    }
+    if (get_field('feature3_icon', $page_id)) {
+        $features[2]['icon'] = get_field('feature3_icon', $page_id);
+    }
+    if (get_field('feature3_points', $page_id)) {
+        $points_text = get_field('feature3_points', $page_id);
+        $features[2]['points'] = array_map('trim', explode(',', $points_text));
+    }
+    
+    // Feature 4
+    if (get_field('feature4_title', $page_id)) {
+        $features[3]['title'] = get_field('feature4_title', $page_id);
+    }
+    if (get_field('feature4_description', $page_id)) {
+        $features[3]['description'] = get_field('feature4_description', $page_id);
+    }
+    if (get_field('feature4_icon', $page_id)) {
+        $features[3]['icon'] = get_field('feature4_icon', $page_id);
+    }
+    if (get_field('feature4_points', $page_id)) {
+        $points_text = get_field('feature4_points', $page_id);
+        $features[3]['points'] = array_map('trim', explode(',', $points_text));
     }
 }
 ?>
@@ -112,7 +168,7 @@ if (function_exists('get_field') && get_field('features', $page_id)) {
         <div class="container">
             <div class="service-overview-content">
                 <div class="service-overview-text">
-                    <h2 class="service-overview-title"><?php echo esc_html($overview_title); ?></h2>
+                    <h2 class="service-overview-title"><?php echo wp_kses_post($overview_title); ?></h2>
                     <p class="service-overview-description">
                         <?php echo esc_html($overview_description_1); ?>
                     </p>
@@ -179,15 +235,20 @@ if (function_exists('get_field') && get_field('features', $page_id)) {
                     ),
                 );
                 
-                // ACFから関連実績が設定されている場合はそちらを優先
+                // ACFから関連実績のIDを個別に取得（無料版対応）
                 $related_works_ids = array();
-                if (function_exists('get_field') && get_field('related_works', $page_id)) {
-                    $related_works = get_field('related_works', $page_id);
-                    if (!empty($related_works) && is_array($related_works)) {
-                        $related_works_ids = array_map(function($post) {
-                            return $post->ID;
-                        }, $related_works);
-                        
+                if (function_exists('get_field')) {
+                    $related_work1 = get_field('related_work1', $page_id);
+                    $related_work2 = get_field('related_work2', $page_id);
+                    
+                    if ($related_work1) {
+                        $related_works_ids[] = $related_work1;
+                    }
+                    if ($related_work2) {
+                        $related_works_ids[] = $related_work2;
+                    }
+                    
+                    if (!empty($related_works_ids)) {
                         $works_args = array(
                             'post_type' => 'works',
                             'posts_per_page' => count($related_works_ids),
@@ -236,21 +297,26 @@ if (function_exists('get_field') && get_field('features', $page_id)) {
     <!-- お問い合わせセクション -->
     <?php 
     // お問い合わせセクションのカスタムテキスト
+    $contact_title = 'デジタルマーケティングのご相談・お問い合わせ';
+    $contact_description = 'デジタルマーケティングに関するご質問やご相談は、お気軽にお問い合わせください。専門スタッフが丁寧にご対応いたします。';
+    
+    // ACFからカスタムテキストを取得（設定されている場合）
+    if (function_exists('get_field')) {
+        if (get_field('contact_title', $page_id)) {
+            $contact_title = get_field('contact_title', $page_id);
+        }
+        if (get_field('contact_description', $page_id)) {
+            $contact_description = get_field('contact_description', $page_id);
+        }
+    }
+    
     $contact_args = array(
-        'title'       => 'デジタルマーケティングのご相談・お問い合わせ',
-        'description' => 'デジタルマーケティングに関するご質問やご相談は、お気軽にお問い合わせください。専門スタッフが丁寧にご対応いたします。',
+        'title'       => $contact_title,
+        'description' => $contact_description,
     );
     get_template_part('template-parts/contact-cta', null, $contact_args);
     ?>
 
-    <!-- 親サービスページへのリンク -->
-    <div class="back-to-services">
-        <div class="container">
-            <a href="<?php echo home_url('/services'); ?>" class="btn btn-outline">
-                <i class="arrow-left"></i> サービス一覧に戻る
-            </a>
-        </div>
-    </div>
 </main>
 
 <?php get_footer(); ?>

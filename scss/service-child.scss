@@ -2,10 +2,12 @@
 // サービス詳細ページのスタイル
 // -----------------------------------------------------------------------------
 
+@import 'variables';
+
 .service-child-page {
   // サービスヒーローセクション
   .service-hero {
-    background-color: $color-light;
+    background-color: $color-hero-purple;
     padding: 80px 0;
     text-align: center;
     
@@ -35,7 +37,7 @@
     }
     
     .page-description {
-      max-width: 700px;
+      max-width: 768px;
       margin: 0 auto;
       color: $color-secondary;
       font-size: $font-size-large;
@@ -76,6 +78,13 @@
       @media (max-width: $breakpoint-md) {
         padding-right: 0;
         margin-bottom: 30px;
+      }
+      
+      // 複数段落の場合のスタイル
+      p.service-overview-description {
+        &:first-of-type {
+          margin-bottom: 20px;
+        }
       }
     }
     
@@ -121,10 +130,11 @@
   // 提供サービスセクション
   .service-features {
     padding: 80px 0;
-    background-color: $color-light;
+    background-color: $color-background;
     min-height: 1076px; // 最小高さ
     display: flex;
     align-items: center;
+    margin-bottom: 0px;
     
     @media (max-width: $breakpoint-md) {
       padding: 60px 0;
@@ -178,6 +188,15 @@
       color: $color-primary-purple;
       border-radius: 8px;
       margin-bottom: 16px;
+      
+      i {
+        font-size: 24px;
+      }
+      
+      // 特定のアイコン向けのスタイル
+      .fa-arrow-up {
+        transform: rotate(45deg); // 右上を向く矢印
+      }
     }
     
     .feature-title {
@@ -239,7 +258,7 @@
   // 導入事例セクション
   .service-works {
     padding: 80px 0;
-    background-color: $color-light;
+    background-color: $color-background;
     
     @media (max-width: $breakpoint-md) {
       padding: 60px 0;
@@ -270,6 +289,77 @@
     .more-works {
       text-align: center;
     }
+    
+    // 実績アイテム
+    .work-item {
+      background-color: $color-background;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+    
+    .work-image {
+      height: 220px;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    .work-content {
+      padding: 24px;
+    }
+    
+    .work-category {
+      display: inline-block;
+      font-size: 12px;
+      color: $color-primary-purple;
+      background-color: $color-light-purple;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+    
+    .work-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      
+      a {
+        color: $color-primary;
+        text-decoration: none;
+        
+        &:hover {
+          color: $color-primary-purple;
+        }
+      }
+    }
+    
+    .work-excerpt {
+      color: $color-secondary;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    
+    .work-link {
+      display: inline-block;
+      color: $color-primary-purple;
+      font-weight: 500;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   
   // 親ページへ戻るリンク
@@ -285,6 +375,17 @@
       border-left: 2px solid currentColor;
       transform: rotate(-45deg);
       margin-right: 8px;
+    }
+  }
+  
+  // お問い合わせCTA（継承スタイル）
+  .contact-cta {
+    // 既存のスタイルを継承
+    
+    // サービス固有の調整があれば追加
+    .btn-purple {
+      padding: 12px 30px;
+      font-size: 18px;
     }
   }
 }
