@@ -15,12 +15,14 @@
     
     <div class="work-content">
         <?php 
-        // カテゴリーを表示
+        // カテゴリーを表示（文字数制限付き）
         $terms = get_the_terms(get_the_ID(), 'works_category');
         if ($terms && !is_wp_error($terms)) :
             $term = array_shift($terms);
+            // 文字数を20文字に制限し、超える場合は...を追加
+            $term_name = mb_strimwidth($term->name, 0, 20, '...');
         ?>
-            <span class="work-category"><?php echo esc_html($term->name); ?></span>
+            <span class="work-category"><?php echo esc_html($term_name); ?></span>
         <?php endif; ?>
         
         <h2 class="work-title">
@@ -30,7 +32,15 @@
         </h2>
         
         <div class="work-excerpt">
-            <?php the_excerpt(); ?>
+            <?php 
+            // ACFフィールドの work_summary を表示
+            if (function_exists('get_field') && get_field('work_summary')) :
+                echo wp_kses_post(get_field('work_summary'));
+            else :
+                // ACFフィールドがない場合は通常の抜粋を表示（フォールバック）
+                the_excerpt();
+            endif;
+            ?>
         </div>
         
         <a href="<?php the_permalink(); ?>" class="work-link">詳細を見る →</a>

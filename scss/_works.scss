@@ -156,6 +156,11 @@ $works-border-radius: 8px;
   .work-category {
     @extend %tag-style;
     margin-bottom: 12px;
+    width: fit-content !important;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   // 実績タイトル
