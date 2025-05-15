@@ -58,6 +58,7 @@
     
     .container {
       max-width: 1024px;
+      padding:0px;
     }
     
     .service-overview-content {
@@ -105,10 +106,11 @@
       line-height: 1.8;
     }
     
+    // サービス概要セクション内の画像
     .service-overview-image {
       flex: 1;
-      width: 496px;
-      height: 496px;
+      width: 488px; // 496pxから488pxに変更
+      height: 488px; // 496pxから488pxに変更
       flex-shrink: 0;
       
       img {
@@ -484,27 +486,40 @@
     // 共通のプロセスアイテムスタイル
     .process-item,
     .process-wide {
-      background-color: $color-light-purple;
+      background-color: $color-background;
       border-radius: 8px;
       padding: 32px;
+      text-align: center;
       
       .process-number {
-        font-size: 24px;
-        font-weight: 700;
-        color: $color-primary-purple;
-        margin-bottom: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: $color-light-purple;
+        margin: 0 auto 16px;
+        
+        span {
+          font-size: 24px;
+          font-weight: 700;
+          color: $color-primary-purple;
+        }
       }
       
       .process-title {
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 12px;
+        text-align: center;
       }
       
       .process-description {
         font-size: 16px;
         color: $color-secondary;
         line-height: 1.6;
+        text-align: center;
       }
     }
     
@@ -523,13 +538,21 @@
     .process-wide {
       width: 100%;
       height: 244px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .process-description {
+        max-width: 664px; // 説明文の幅を664pxに制限
+        width: 100%;
+      }
       
       @media (max-width: $breakpoint-md) {
         height: auto;
       }
     }
   }
-  
+
   // 導入事例セクション
   .service-works {
     padding: 80px 0;

@@ -92,23 +92,24 @@ $features = array(
 $consulting_processes = array(
     array(
         'number' => '1',
-        'title' => '現状分析・課題抽出',
-        'description' => '現状のビジネスモデルや業務プロセス、システム環境、組織体制などを分析し、デジタル化における課題を抽出します。'
+        'title' => '現状分析',
+        'description' => '企業の現状や課題、市場環境、競合状況などを徹底的に分析し、 デジタル成熟度診断を実施します。'
     ),
     array(
         'number' => '2',
         'title' => '戦略立案',
-        'description' => '経営目標とデジタル技術を結びつけ、ROIを考慮した実現可能なDX戦略とロードマップを作成します。'
+        'description' => '分析結果に基づき、企業のビジョンや目標を実現するための DX戦略とロードマップを策定します。'
     ),
     array(
         'number' => '3',
-        'title' => '実行計画策定',
-        'description' => '具体的なプロジェクト計画、必要なリソース、予算、実施スケジュールなどの詳細な実行計画を策定します。'
+        'title' => '実行支援',
+        'description' => '策定した戦略の実行をサポート。プロジェクト管理、 システム導入、組織変革など、包括的に支援
+します。'
     ),
     array(
         'number' => '4',
-        'title' => '実行支援・モニタリング',
-        'description' => '計画の実行をサポートし、進捗状況や成果を定期的に評価。必要に応じて戦略や計画の見直しを行い、継続的な改善を図ります。'
+        'title' => '効果測定・改善',
+        'description' => 'DX施策の効果を定量的に測定し、継続的な改善を支援します。 KPIの設定から測定、分析、改善提案まで一貫してサポートします。'
     )
 );
 
@@ -330,14 +331,6 @@ if (function_exists('get_field')) {
     get_template_part('template-parts/contact-cta', null, $contact_args);
     ?>
 
-    <!-- 親サービスページへのリンク -->
-    <div class="back-to-services">
-        <div class="container">
-            <a href="<?php echo home_url('/services'); ?>" class="btn btn-outline">
-                <i class="arrow-left"></i> サービス一覧に戻る
-            </a>
-        </div>
-    </div>
 </main>
 
 <?php get_footer(); ?>

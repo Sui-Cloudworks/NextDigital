@@ -1,36 +1,56 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying works archive
+ */
+
+get_header();
+?>
 
 <main id="primary" class="site-main works-archive">
-    <div class="container">
-        <header class="page-header">
+    <!-- ページヒーローセクション -->
+    <section class="page-hero">
+        <div class="container">
             <h1 class="page-title">実績</h1>
-        </header>
+            <p class="page-description">Nexus Digitalがこれまでに手がけた主な実績をご紹介します。様々な業界のお客様のデジタル変革を支援してきました。</p>
+        </div>
+    </section>
 
-        <div class="works-grid">
+    <!-- 実績一覧セクション -->
+    <section class="works-list">
+        <div class="container">
             <?php if (have_posts()) : ?>
-                <?php while (have_posts()) : the_post(); ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class('works-item'); ?>>
-                        <a href="<?php the_permalink(); ?>">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <div class="works-thumbnail">
-                                    <?php the_post_thumbnail('medium'); ?>
-                                </div>
-                            <?php endif; ?>
-                            <h2 class="works-title"><?php the_title(); ?></h2>
-                            <div class="works-excerpt">
-                                <?php the_excerpt(); ?>
-                            </div>
-                        </a>
-                    </article>
-                <?php endwhile; ?>
-                
-                <?php the_posts_pagination(); ?>
-                
+                <div class="works-grid">
+                    <?php
+                    while (have_posts()) :
+                        the_post();
+                        get_template_part('template-parts/content-works');
+                    endwhile;
+                    ?>
+                </div>
+
+                <?php
+                // ページネーション
+                the_posts_pagination(array(
+                    'prev_text' => '前へ',
+                    'next_text' => '次へ',
+                    'mid_size' => 2,
+                ));
+                ?>
+
             <?php else : ?>
-                <p><?php esc_html_e('実績が見つかりませんでした。', 'nextdigital'); ?></p>
+                <p class="no-works">実績が見つかりませんでした。</p>
             <?php endif; ?>
         </div>
-    </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <?php 
+    $contact_args = array(
+        'title'       => 'お客様の課題解決をサポートします',
+        'description' => 'Nexus Digitalは、お客様のビジネス課題に合わせた最適なデジタルソリューションを提供します。まずはお気軽にご相談ください。',
+    );
+    get_template_part('template-parts/contact-cta', null, $contact_args);
+    ?>
 </main>
 
 <?php get_footer(); ?>

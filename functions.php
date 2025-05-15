@@ -77,10 +77,10 @@ function nextdigital_scripts() {
 add_action('wp_enqueue_scripts', 'nextdigital_scripts');
 
 /**
- * Register custom post types
+ * 実績のカスタム投稿タイプとタクソノミーを登録
  */
-function nextdigital_register_post_types() {
-    // Works (実績) Custom Post Type
+function nextdigital_register_works_post_type() {
+    // 実績の投稿タイプ
     register_post_type('works', array(
         'labels' => array(
             'name'               => '実績',
@@ -95,40 +95,39 @@ function nextdigital_register_post_types() {
             'not_found'          => '実績が見つかりませんでした',
             'not_found_in_trash' => 'ゴミ箱に実績はありません',
         ),
-        'public'      => true,
-        'has_archive' => true,
-        'rewrite'     => array('slug' => 'works'),
-        'menu_icon'   => 'dashicons-portfolio',
-        'supports'    => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'public'              => true,
+        'has_archive'         => true,
+        'show_in_rest'        => true,
+        'menu_position'       => 5,
+        'menu_icon'           => 'dashicons-portfolio',
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'rewrite'             => array('slug' => 'works'),
     ));
-}
-add_action('init', 'nextdigital_register_post_types');
 
-/**
- * Register widget area.
- */
-function nextdigital_widgets_init() {
-    register_sidebar(array(
-        'name'          => esc_html__('Sidebar', 'nextdigital'),
-        'id'            => 'sidebar-1',
-        'description'   => esc_html__('Add widgets here.', 'nextdigital'),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ));
-    
-    register_sidebar(array(
-        'name'          => esc_html__('Footer Widget Area', 'nextdigital'),
-        'id'            => 'footer-1',
-        'description'   => esc_html__('Add footer widgets here.', 'nextdigital'),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
+    // 実績のカテゴリー
+    register_taxonomy('works_category', 'works', array(
+        'labels' => array(
+            'name'              => '実績カテゴリー',
+            'singular_name'     => '実績カテゴリー',
+            'search_items'      => '実績カテゴリーを検索',
+            'all_items'         => 'すべての実績カテゴリー',
+            'parent_item'       => '親カテゴリー',
+            'parent_item_colon' => '親カテゴリー:',
+            'edit_item'         => 'カテゴリーを編集',
+            'update_item'       => 'カテゴリーを更新',
+            'add_new_item'      => '新規カテゴリーを追加',
+            'new_item_name'     => '新しいカテゴリー名',
+            'menu_name'         => 'カテゴリー',
+        ),
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array('slug' => 'works-category'),
     ));
 }
-add_action('widgets_init', 'nextdigital_widgets_init');
+add_action('init', 'nextdigital_register_works_post_type');
 
 /**
  * Disable the emoji's
@@ -222,3 +221,12 @@ if (class_exists('Wp_Scss_Settings')) {
     // Force compile on every page load during development
     add_filter('wp_scss_needs_compiling', '__return_true');
 }
+
+/**
+ * 実績用のサムネイルサイズを登録
+ */
+function nextdigital_add_image_sizes() {
+    // 実績用サムネイル（363px×256px）
+    add_image_size('work-thumbnail', 363, 256, true);
+}
+add_action('after_setup_theme', 'nextdigital_add_image_sizes');
