@@ -5,18 +5,52 @@ Description: Custom theme for Next Digital website
 Version: 1.0
 */
 
+// =============================================================================
+// 目次
+// =============================================================================
+// 1. 基本設定 - 変数、ミックスイン、関数
+// 2. リセットとベーススタイル - 全体の基本スタイル
+// 3. タイポグラフィ - 見出し、段落、リスト
+// 4. レイアウト - コンテナ、グリッド、フレックスボックス
+// 5. コンポーネント - ボタン、フォーム、カード
+// 6. ユーティリティ - ヘルパークラス
+// 7. テーマ固有のスタイル - ヘッダー、フッター
+// 8. ページ固有のスタイル - ホーム、サービス、実績
+// 9. WordPress固有のスタイル - 投稿、ページネーション
+// 10. メディアクエリ - プリントスタイル
+// =============================================================================
+
 // -----------------------------------------------------------------------------
 // 1. 基本設定
 // -----------------------------------------------------------------------------
 
-// 変数と設定
+// 変数と設定をインポート
 @import 'variables';
 
+// 共通ミックスイン
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin responsive-font($desktop-size, $mobile-size) {
+  font-size: $desktop-size;
+  
+  @media (max-width: $breakpoint-md) {
+    font-size: $mobile-size;
+  }
+}
+
+@mixin card-style {
+  background-color: $color-background;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
 // -----------------------------------------------------------------------------
-// 2. 基本スタイル
+// 2. リセットとベーススタイル
 // -----------------------------------------------------------------------------
 
-// リセット & ベーススタイル
 * {
   margin: 0;
   padding: 0;
@@ -33,7 +67,7 @@ body {
 a {
   color: $color-accent;
   text-decoration: none;
-  transition: color 0.3s ease;
+  @include transition(color);
   
   &:hover {
     color: darken($color-accent, 10%);
@@ -45,7 +79,10 @@ img {
   height: auto;
 }
 
-// タイポグラフィ
+// -----------------------------------------------------------------------------
+// 3. タイポグラフィ
+// -----------------------------------------------------------------------------
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.3;
@@ -53,27 +90,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: $font-size-3xl;
-  
-  @media (max-width: $breakpoint-md) {
-    font-size: $font-size-2xl;
-  }
+  @include responsive-font($font-size-3xl, $font-size-2xl);
 }
 
 h2 {
-  font-size: $font-size-2xl;
-  
-  @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xl;
-  }
+  @include responsive-font($font-size-2xl, $font-size-xl);
 }
 
 h3 {
-  font-size: $font-size-xl;
-  
-  @media (max-width: $breakpoint-md) {
-    font-size: $font-size-large;
-  }
+  @include responsive-font($font-size-xl, $font-size-large);
 }
 
 p {
@@ -86,7 +111,7 @@ ul, ol {
 }
 
 // -----------------------------------------------------------------------------
-// 3. レイアウト
+// 4. レイアウト
 // -----------------------------------------------------------------------------
 
 // コンテナ
@@ -101,21 +126,17 @@ ul, ol {
   }
 }
 
-// サイトコンテンツ
-.site-content, .site-footer {
-  width: 100%;
-  max-width: $site-max-width;
-  margin: 0 auto;
-}
-
-// .site-content {
-//   padding-top: calc(#{$header-height} + 20px); // ヘッダーの高さ + 余白
-//   padding-bottom: 40px;
-// }
-
-// メイン
-.site-main {
-  min-height: 500px;
+// サイト構造
+.site {
+  &-content, &-footer {
+    width: 100%;
+    max-width: $site-max-width;
+    margin: 0 auto;
+  }
+  
+  &-main {
+    min-height: 500px;
+  }
 }
 
 // セクション
@@ -128,18 +149,10 @@ ul, ol {
     text-align: center;
     position: relative;
     
-    &:after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      background-color: $color-primary;
-      margin: 15px auto 0;
-    }
   }
 }
 
-// グリッドレイアウト
+// グリッドシステム
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -154,7 +167,7 @@ ul, ol {
   }
 }
 
-// フレックスボックスヘルパー
+// フレックスレイアウト
 .flex {
   display: flex;
   
@@ -173,7 +186,7 @@ ul, ol {
 }
 
 // -----------------------------------------------------------------------------
-// 4. コンポーネント
+// 5. コンポーネント
 // -----------------------------------------------------------------------------
 
 // ボタン
@@ -188,13 +201,14 @@ ul, ol {
   border: 2px solid $color-primary;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  @include transition;
   
   &:hover {
     opacity: 0.9;
     text-decoration: none;
   }
   
+  // バリエーション
   &-outline {
     color: $color-primary;
     background-color: transparent;
@@ -225,6 +239,7 @@ ul, ol {
     }
   }
   
+  // サイズ
   &-lg {
     padding: 12px 30px;
     font-size: $font-size-large;
@@ -235,6 +250,7 @@ ul, ol {
     font-size: $font-size-small;
   }
   
+  // レイアウト
   &-block {
     display: block;
     width: 100%;
@@ -242,15 +258,7 @@ ul, ol {
 }
 
 // フォーム要素
-input[type="text"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="search"],
-input[type="number"],
-input[type="tel"],
-textarea,
-select {
+%form-control {
   display: block;
   width: 100%;
   padding: 10px 15px;
@@ -260,12 +268,29 @@ select {
   background-color: $color-background;
   border: 1px solid $color-border;
   border-radius: 4px;
-  transition: border-color 0.3s ease;
+  @include transition(border-color);
   
   &:focus {
     border-color: $color-accent;
     outline: none;
   }
+}
+
+input {
+  &[type="text"],
+  &[type="email"],
+  &[type="url"],
+  &[type="password"],
+  &[type="search"],
+  &[type="number"],
+  &[type="tel"] {
+    @extend %form-control;
+  }
+}
+
+textarea,
+select {
+  @extend %form-control;
 }
 
 textarea {
@@ -285,10 +310,7 @@ label {
 
 // カードスタイル
 .card {
-  background-color: $color-background;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  @include card-style;
   
   &-body {
     padding: 20px;
@@ -304,7 +326,7 @@ label {
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  @include transition((opacity, transform), 0.6s);
   
   &.visible {
     opacity: 1;
@@ -313,7 +335,53 @@ label {
 }
 
 // -----------------------------------------------------------------------------
-// 5. レイアウトコンポーネント
+// 6. ユーティリティクラス
+// -----------------------------------------------------------------------------
+
+// テキスト配置
+.text {
+  &-center { text-align: center; }
+  &-left { text-align: left; }
+  &-right { text-align: right; }
+}
+
+// マージン
+@for $i from 0 through 4 {
+  .mb-#{$i} { margin-bottom: #{$i * 0.5}rem; }
+  .mt-#{$i} { margin-top: #{$i * 0.5}rem; }
+}
+
+// パディング
+@for $i from 0 through 4 {
+  .p-#{$i} { padding: #{$i * 0.5}rem; }
+}
+
+// 表示・非表示
+.d {
+  &-none { display: none; }
+  &-block { display: block; }
+  &-flex { display: flex; }
+  &-inline { display: inline; }
+  &-inline-block { display: inline-block; }
+}
+
+// レスポンシブ表示制御
+@each $breakpoint, $size in (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg
+) {
+  @media (max-width: $size) {
+    .d-#{$breakpoint} {
+      &-none { display: none; }
+      &-block { display: block; }
+      &-flex { display: flex; }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 7. テーマ固有のスタイル
 // -----------------------------------------------------------------------------
 
 // ヘッダー
@@ -323,10 +391,10 @@ label {
 @import 'footer';
 
 // -----------------------------------------------------------------------------
-// 6. ページ固有のスタイル
+// 8. ページ固有のスタイル
 // -----------------------------------------------------------------------------
 
-// フロントページ
+// 各ページのスタイルをインポート
 @import 'front-page';
 @import 'about';
 @import 'services';
@@ -335,29 +403,31 @@ label {
 @import 'contact';
 
 // -----------------------------------------------------------------------------
-// 7. WordPress固有のスタイル
+// 9. WordPress固有のスタイル
 // -----------------------------------------------------------------------------
 
 // ブログ投稿
 .post {
   margin-bottom: 40px;
   
-  .entry-header {
-    margin-bottom: 20px;
-  }
-  
-  .entry-title {
-    margin-bottom: 10px;
-  }
-  
-  .entry-meta {
-    color: $color-secondary;
-    font-size: $font-size-small;
-    margin-bottom: 15px;
-  }
-  
-  .entry-content {
-    margin-bottom: 20px;
+  .entry {
+    &-header {
+      margin-bottom: 20px;
+    }
+    
+    &-title {
+      margin-bottom: 10px;
+    }
+    
+    &-meta {
+      color: $color-secondary;
+      font-size: $font-size-small;
+      margin-bottom: 15px;
+    }
+    
+    &-content {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -389,82 +459,30 @@ label {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid $color-border;
-  }
-  
-  .comment-meta {
-    margin-bottom: 10px;
-  }
-  
-  .comment-author {
-    font-weight: 700;
-  }
-  
-  .comment-content {
-    margin-bottom: 10px;
+    
+    &-meta {
+      margin-bottom: 10px;
+    }
+    
+    &-author {
+      font-weight: 700;
+    }
+    
+    &-content {
+      margin-bottom: 10px;
+    }
   }
 }
 
 // -----------------------------------------------------------------------------
-// 8. ユーティリティクラス
-// -----------------------------------------------------------------------------
-
-// テキスト配置
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-// マージン
-.mb-0 { margin-bottom: 0; }
-.mt-0 { margin-top: 0; }
-.mb-1 { margin-bottom: 0.5rem; }
-.mt-1 { margin-top: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mt-2 { margin-top: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-.mt-4 { margin-top: 2rem; }
-
-// パディング
-.p-0 { padding: 0; }
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-
-// 表示・非表示
-.d-none { display: none; }
-.d-block { display: block; }
-.d-flex { display: flex; }
-.d-inline { display: inline; }
-.d-inline-block { display: inline-block; }
-
-// レスポンシブ表示制御
-@media (max-width: $breakpoint-sm) {
-  .d-sm-none { display: none; }
-  .d-sm-block { display: block; }
-  .d-sm-flex { display: flex; }
-}
-
-@media (max-width: $breakpoint-md) {
-  .d-md-none { display: none; }
-  .d-md-block { display: block; }
-  .d-md-flex { display: flex; }
-}
-
-@media (max-width: $breakpoint-lg) {
-  .d-lg-none { display: none; }
-  .d-lg-block { display: block; }
-  .d-lg-flex { display: flex; }
-}
-
-// -----------------------------------------------------------------------------
-// 9. メディアクエリ
+// 10. メディアクエリ
 // -----------------------------------------------------------------------------
 
 // プリント用スタイル
 @media print {
-  .no-print { display: none; }
+  .no-print { 
+    display: none; 
+  }
   
   a {
     text-decoration: underline;

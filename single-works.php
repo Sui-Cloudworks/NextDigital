@@ -23,16 +23,18 @@ $client_person = get_field('client_person');
     <section class="work-hero">
         <div class="container">
             <div class="work-hero-header">
-                <a href="<?php echo get_post_type_archive_link('works'); ?>" class="back-link">← 実績に戻る</a>
-                
-                <?php
-                // カテゴリーの表示
-                $terms = get_the_terms(get_the_ID(), 'works_category');
-                if ($terms && !is_wp_error($terms)) :
-                    $term = array_shift($terms);
-                ?>
-                    <span class="work-category"><?php echo esc_html($term->name); ?></span>
-                <?php endif; ?>
+                <div class="header-content">
+                    <a href="<?php echo get_post_type_archive_link('works'); ?>" class="back-link">← 実績に戻る</a>
+                    
+                    <?php
+                    // カテゴリーの表示
+                    $terms = get_the_terms(get_the_ID(), 'works_category');
+                    if ($terms && !is_wp_error($terms)) :
+                        $term = array_shift($terms);
+                    ?>
+                        <span class="work-category"><?php echo esc_html($term->name); ?></span>
+                    <?php endif; ?>
+                </div>
             </div>
             
             <h1 class="work-title"><?php the_title(); ?></h1>
@@ -54,14 +56,14 @@ $client_person = get_field('client_person');
                 
                 <?php
                 // タグの表示
-                $tags = get_the_tags();
-                if ($tags) : ?>
+                $post_tags = wp_get_post_tags(get_the_ID());
+                if (!empty($post_tags)) : ?>
                 <div class="meta-item">
                     <i class="fas fa-tag"></i>
                     <span>
-                        <?php
+                        <?php 
                         $tag_names = array();
-                        foreach ($tags as $tag) {
+                        foreach ($post_tags as $tag) {
                             $tag_names[] = $tag->name;
                         }
                         echo esc_html(implode(', ', $tag_names));
@@ -104,58 +106,91 @@ $client_person = get_field('client_person');
             <?php endif; ?>
             
             <!-- ソリューションセクション -->
-            <?php if ($work_solutions) : ?>
+            <?php 
+            // ソリューションフィールドが入力されているか確認
+            $has_solutions = false;
+            for ($i = 1; $i <= 5; $i++) {
+                if (!empty(get_field('solution_' . $i))) {
+                    $has_solutions = true;
+                    break;
+                }
+            }
+
+            if ($has_solutions) : ?>
             <div class="work-section">
                 <h2 class="section-title">ソリューション</h2>
                 <div class="solution-list">
-                    <?php
-                    $count = 1;
-                    foreach ($work_solutions as $solution) : ?>
-                        <div class="solution-item">
-                            <div class="solution-number">
-                                <span><?php echo esc_html($count); ?></span>
+                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                        <?php $solution = get_field('solution_' . $i); ?>
+                        <?php if (!empty($solution)) : ?>
+                            <div class="solution-item">
+                                <div class="solution-number">
+                                    <span><?php echo esc_html($i); ?></span>
+                                </div>
+                                <div class="solution-text">
+                                    <?php echo wp_kses_post($solution); ?>
+                                </div>
                             </div>
-                            <div class="solution-text">
-                                <?php echo wp_kses_post($solution['solution_text']); ?>
-                            </div>
-                        </div>
-                    <?php
-                        $count++;
-                    endforeach;
-                    ?>
+                        <?php endif; ?>
+                    <?php endfor; ?>
                 </div>
             </div>
             <?php endif; ?>
             
             <!-- プロジェクト画像ギャラリー -->
-            <?php if ($work_gallery) : ?>
+            <?php
+            // 画像が1つ以上あるか確認
+            $has_gallery = false;
+            for ($i = 1; $i <= 6; $i++) {
+                if (!empty(get_field('work_gallery_' . $i))) {
+                    $has_gallery = true;
+                    break;
+                }
+            }
+
+            if ($has_gallery) : ?>
             <div class="work-section">
                 <h2 class="section-title">プロジェクト画像</h2>
                 <div class="gallery-container">
                     <div class="gallery-scroll">
-                        <?php foreach ($work_gallery as $image) : ?>
-                            <div class="gallery-item">
-                                <img src="<?php echo esc_url($image['sizes']['gallery-thumb']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
-                            </div>
-                        <?php endforeach; ?>
+                        <?php for ($i = 1; $i <= 6; $i++) : ?>
+                            <?php $image = get_field('work_gallery_' . $i); ?>
+                            <?php if (!empty($image)) : ?>
+                                <div class="gallery-item">
+                                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
+                                </div>
+                            <?php endif; ?>
+                        <?php endfor; ?>
                     </div>
                 </div>
             </div>
             <?php endif; ?>
             
-            <!-- 成果セクション -->
-            <?php if ($work_results) : ?>
+            <?php 
+            // 成果フィールドが入力されているか確認
+            $has_results = false;
+            for ($i = 1; $i <= 5; $i++) {
+                if (!empty(get_field('result_' . $i))) {
+                    $has_results = true;
+                    break;
+                }
+            }
+
+            if ($has_results) : ?>
             <div class="work-section work-results">
                 <h2 class="section-title">成果</h2>
                 <div class="results-container">
                     <div class="results-inner">
                         <ul class="results-list">
-                            <?php foreach ($work_results as $result) : ?>
-                                <li class="result-item">
-                                    <span class="check-mark">✓</span>
-                                    <span class="result-text"><?php echo esc_html($result['result_text']); ?></span>
-                                </li>
-                            <?php endforeach; ?>
+                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                <?php $result = get_field('result_' . $i); ?>
+                                <?php if (!empty($result)) : ?>
+                                    <li class="result-item">
+                                        <span class="check-mark">✓</span>
+                                        <span class="result-text"><?php echo esc_html($result); ?></span>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         </ul>
                     </div>
                 </div>
@@ -183,7 +218,6 @@ $client_person = get_field('client_person');
             </div>
             <?php endif; ?>
         </div>
-    </section>
     
     <!-- お問い合わせセクション -->
     <?php 
@@ -191,9 +225,11 @@ $client_person = get_field('client_person');
         'title'       => 'お客様の課題解決をサポートします',
         'description' => 'Nexus Digitalは、お客様のビジネス課題に合わせた最適なデジタルソリューションを提供します。まずはお気軽にご相談ください。',
         'background'  => 'white', // 背景色を白に指定
+        'custom_style' => true, // カスタムスタイルを適用
     );
     get_template_part('template-parts/contact-cta', null, $contact_args);
     ?>
+        </section>
 </main>
 
 <?php get_footer(); ?>

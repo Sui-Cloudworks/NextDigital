@@ -1,8 +1,54 @@
 // -----------------------------------------------------------------------------
-// 実績ページのスタイル
+// 実績関連ページのスタイル
 // -----------------------------------------------------------------------------
 
+// 共通変数とミックスイン
+$works-text-color: #374151;
+$works-border-radius: 8px;
+
+// 共通コンポーネント
+%card-shadow {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: $works-border-radius;
+  overflow: hidden;
+}
+
+%section-spacing {
+  margin-bottom: 60px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: $color-primary;
+  text-align: left;
+}
+
+// タグスタイル
+%tag-style {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B21A8;
+  background-color: $color-light-purple;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+// -----------------------------------------------------------------------------
 // 実績アーカイブページ
+// -----------------------------------------------------------------------------
 .works-archive {
   // ページヒーロー
   .page-hero {
@@ -45,36 +91,34 @@
     }
     
     .container {
-      max-width: 1152px; // 指定の幅
+      max-width: 1152px;
     }
   }
   
   // 実績グリッド
   .works-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); // 3列
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     margin-bottom: 60px;
     
     @media (max-width: $breakpoint-lg) {
-      grid-template-columns: repeat(2, 1fr); // タブレットでは2列
+      grid-template-columns: repeat(2, 1fr);
     }
     
     @media (max-width: $breakpoint-md) {
-      grid-template-columns: 1fr; // モバイルでは1列
+      grid-template-columns: 1fr;
     }
   }
   
   // 実績アイテム
   .work-item {
     width: 100%;
-    max-width: 362.66px; // 指定の幅（1152÷3=384から余白を引いた値）
+    max-width: 362.66px;
     background-color: $color-background;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    @extend %card-shadow;
     transition: transform 0.3s ease;
-    margin: 0 auto; // 中央揃え
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     
@@ -110,20 +154,14 @@
   
   // カテゴリータグ
   .work-category {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 600; // semi-bold
-    color: #6B21A8;
-    background-color: $color-light-purple;
-    padding: 4px 12px;
-    border-radius: 9999px;
+    @extend %tag-style;
     margin-bottom: 12px;
   }
   
   // 実績タイトル
   .work-title {
     font-size: 20px;
-    font-weight: 600; // semi-bold
+    font-weight: 600;
     margin-bottom: 12px;
     line-height: 1.4;
     
@@ -191,30 +229,46 @@
 }
 
 // -----------------------------------------------------------------------------
-// 実績詳細ページのスタイル
+// 実績詳細ページ
 // -----------------------------------------------------------------------------
-
 .single-works {
   // ヒーローセクション
   .work-hero {
     padding: 60px 0 40px;
-    background-color: $color-light;
+    background-color: $color-hero-purple;
     
     .container {
       max-width: 896px;
     }
     
     .work-hero-header {
+      position: relative;
+      margin-bottom: 20px;
+      text-align: center;
+      
+      .header-content {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
-      position: relative;
+      justify-content: center;
+      gap: 15px; // リンクとカテゴリーの間隔を調整
+      } 
+      // 中央の線を削除
+      &:after,
+      &:before {
+        display: none;
+      }
+    }
+    
+    .back-link-container {
+      width: 100%;
+      text-align: center;
     }
     
     .back-link {
       font-size: 16px;
       color: $color-primary-purple;
       text-decoration: none;
+      display: inline-block;
       
       &:hover {
         text-decoration: underline;
@@ -222,16 +276,14 @@
     }
     
     .work-category {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      display: inline-block;
       font-size: 12px;
       font-weight: 600;
       color: #6B21A8;
       background-color: $color-light-purple;
       padding: 4px 12px;
       border-radius: 9999px;
+      position: static; // 絶対配置を解除
+      transform: none; // 変形をリセット
     }
     
     .work-title {
@@ -265,7 +317,7 @@
       
       i {
         margin-right: 8px;
-        color: $color-primary-purple;
+        color: $color-secondary;
       }
     }
   }
@@ -274,6 +326,12 @@
   .work-content {
     padding: 60px 0;
     
+    // 中央の線を削除
+    &:after,
+    &:before {
+      display: none;
+    }
+    
     @media (max-width: $breakpoint-md) {
       padding: 40px 0;
     }
@@ -281,7 +339,7 @@
     .container-narrow {
       max-width: 896px;
       margin: 0 auto;
-      padding: 0 15px;
+      padding: 0px;
     }
   }
   
@@ -294,35 +352,34 @@
       height: auto;
       max-height: 896px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: $works-border-radius;
     }
   }
   
   // セクション共通
   .work-section {
-    margin-bottom: 60px;
+    @extend %section-spacing;
     
-    &:last-child {
-      margin-bottom: 0;
+    // 中央の線を削除
+    &:after,
+    &:before {
+      display: none;
     }
     
     .section-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: $color-primary;
+      @extend %section-title;
     }
     
     .section-content {
       font-size: 18px;
-      color: #374151;
+      color: $works-text-color;
       line-height: 1.8;
       
       p {
-        margin-bottom: 1em;
+        margin-bottom: 0px;
         
         &:last-child {
-          margin-bottom: 0;
+          margin-bottom: 0px;
         }
       }
     }
@@ -330,16 +387,14 @@
   
   // 課題セクション
   .work-challenge {
-    background-color: $color-light;
-    padding: 30px;
-    border-radius: 8px;
-    
-    .section-title {
-      margin-top: 0;
-    }
+    background-color: transparent;
+    padding: 0;
     
     .section-content {
       font-size: 16px;
+      background-color: $color-light;
+      padding: 30px;
+      border-radius: $works-border-radius;
     }
   }
   
@@ -347,18 +402,17 @@
   .solution-list {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 12px;
   }
   
   .solution-item {
     display: flex;
     align-items: flex-start;
+    margin-bottom: 0px;
   }
   
   .solution-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %flex-center;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -375,14 +429,24 @@
   
   .solution-text {
     font-size: 16px;
-    color: #374151;
+    color: $works-text-color;
     line-height: 1.6;
+    p {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
   
   // ギャラリー
   .gallery-container {
     width: 100%;
     overflow: hidden;
+    
+    // 中央の線を削除
+    &:after,
+    &:before {
+      display: none;
+    }
   }
   
   .gallery-scroll {
@@ -416,16 +480,22 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: $works-border-radius;
     }
   }
   
   // 成果セクション
   .work-results {
     .results-container {
-      background-color: $color-light-purple;
-      border-radius: 8px;
+      background-color: $color-hero-purple;
+      border-radius: $works-border-radius;
       padding: 30px;
+      
+      // 中央の線を削除
+      &:after,
+      &:before {
+        display: none;
+      }
       
       .results-inner {
         max-width: 848px;
@@ -456,7 +526,7 @@
       }
       
       .result-text {
-        color: #374151;
+        color: $works-text-color;
         line-height: 1.6;
       }
     }
@@ -465,6 +535,12 @@
   // お客様の声セクション
   .testimonial-container {
     padding: 24px 0;
+    
+    // 中央の線を削除
+    &:after,
+    &:before {
+      display: none;
+    }
   }
   
   .testimonial-content {
@@ -483,14 +559,24 @@
     cite {
       display: block;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 300;
       font-size: 16px;
-      color: $color-primary;
+      color: $color-secondary;
     }
   }
   
   // お問い合わせセクション（白背景）
   .contact-cta {
     background-color: $color-background !important;
+    padding: 64px !important;
+    
+    .contact-cta-title {
+      font-size: 20px !important;
+      color: #0A0A0A !important;
+    }
+    
+    .contact-cta-description {
+      color: $color-secondary !important;
+    }
   }
 }

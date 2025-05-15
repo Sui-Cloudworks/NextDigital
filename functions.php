@@ -236,13 +236,14 @@ function nextdigital_add_image_sizes() {
 add_action('after_setup_theme', 'nextdigital_add_image_sizes');
 
 /**
- * 実績詳細用のACFフィールドを登録
+ * 実績詳細用のACFフィールド
  */
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
         'key' => 'group_works_details',
         'title' => '実績詳細情報',
         'fields' => array(
+            // メタ情報
             array(
                 'key' => 'field_project_date',
                 'label' => 'プロジェクト日付',
@@ -256,6 +257,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'client_name',
                 'type' => 'text',
             ),
+            
+            // 概要・課題
             array(
                 'key' => 'field_work_summary',
                 'label' => '概要',
@@ -268,45 +271,116 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'work_challenge',
                 'type' => 'wysiwyg',
             ),
+            
+            // ソリューション（個別フィールド）
             array(
-                'key' => 'field_work_solutions',
-                'label' => 'ソリューション',
-                'name' => 'work_solutions',
-                'type' => 'repeater',
-                'min' => 0,
-                'max' => 5,
-                'layout' => 'block',
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_solution_text',
-                        'label' => 'ソリューション内容',
-                        'name' => 'solution_text',
-                        'type' => 'wysiwyg',
-                    ),
-                ),
+                'key' => 'field_solution_1',
+                'label' => 'ソリューション1',
+                'name' => 'solution_1',
+                'type' => 'wysiwyg',
             ),
             array(
-                'key' => 'field_work_gallery',
-                'label' => 'プロジェクト画像',
-                'name' => 'work_gallery',
-                'type' => 'gallery',
+                'key' => 'field_solution_2',
+                'label' => 'ソリューション2',
+                'name' => 'solution_2',
+                'type' => 'wysiwyg',
             ),
             array(
-                'key' => 'field_work_results',
-                'label' => '成果',
-                'name' => 'work_results',
-                'type' => 'repeater',
-                'min' => 0,
-                'layout' => 'block',
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_result_text',
-                        'label' => '成果内容',
-                        'name' => 'result_text',
-                        'type' => 'text',
-                    ),
-                ),
+                'key' => 'field_solution_3',
+                'label' => 'ソリューション3',
+                'name' => 'solution_3',
+                'type' => 'wysiwyg',
             ),
+            array(
+                'key' => 'field_solution_4',
+                'label' => 'ソリューション4',
+                'name' => 'solution_4',
+                'type' => 'wysiwyg',
+            ),
+            array(
+                'key' => 'field_solution_5',
+                'label' => 'ソリューション5',
+                'name' => 'solution_5',
+                'type' => 'wysiwyg',
+            ),
+            
+            // プロジェクト画像
+            array(
+                'key' => 'field_work_gallery_1',
+                'label' => '画像1',
+                'name' => 'work_gallery_1',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_work_gallery_2',
+                'label' => '画像2',
+                'name' => 'work_gallery_2',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_work_gallery_3',
+                'label' => '画像3',
+                'name' => 'work_gallery_3',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_work_gallery_4',
+                'label' => '画像4',
+                'name' => 'work_gallery_4',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_work_gallery_5',
+                'label' => '画像5',
+                'name' => 'work_gallery_5',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_work_gallery_6',
+                'label' => '画像6',
+                'name' => 'work_gallery_6',
+                'type' => 'image',
+                'return_format' => 'array',
+            ),
+            
+            // 成果（個別フィールド）
+            array(
+                'key' => 'field_result_1',
+                'label' => '成果1',
+                'name' => 'result_1',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_result_2',
+                'label' => '成果2',
+                'name' => 'result_2',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_result_3',
+                'label' => '成果3',
+                'name' => 'result_3',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_result_4',
+                'label' => '成果4',
+                'name' => 'result_4',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_result_5',
+                'label' => '成果5',
+                'name' => 'result_5',
+                'type' => 'text',
+            ),
+            
+            // お客様の声
             array(
                 'key' => 'field_client_testimonial',
                 'label' => 'お客様の声',
