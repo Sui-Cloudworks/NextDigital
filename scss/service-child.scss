@@ -444,6 +444,92 @@
     }
   }
   
+  // コンサルティングプロセスセクション（service-cの固有セクション）
+  .consulting-process {
+    padding: 80px 0;
+    background-color: $color-background;
+    
+    @media (max-width: $breakpoint-md) {
+      padding: 60px 0;
+    }
+    
+    .container {
+      max-width: 1024px;
+    }
+    
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+    
+    .process-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    
+    // プロセス1-3を横並びにする行
+    .process-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      
+      @media (max-width: $breakpoint-md) {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    // 共通のプロセスアイテムスタイル
+    .process-item,
+    .process-wide {
+      background-color: $color-light-purple;
+      border-radius: 8px;
+      padding: 32px;
+      
+      .process-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: $color-primary-purple;
+        margin-bottom: 16px;
+      }
+      
+      .process-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      
+      .process-description {
+        font-size: 16px;
+        color: $color-secondary;
+        line-height: 1.6;
+      }
+    }
+    
+    // プロセスアイテム（1-3）
+    .process-item {
+      height: 292px;
+      width: 320px;
+      
+      @media (max-width: $breakpoint-md) {
+        width: 100%;
+        height: auto;
+      }
+    }
+    
+    // 幅広プロセスアイテム（4）
+    .process-wide {
+      width: 100%;
+      height: 244px;
+      
+      @media (max-width: $breakpoint-md) {
+        height: auto;
+      }
+    }
+  }
+  
   // 導入事例セクション
   .service-works {
     padding: 80px 0;
