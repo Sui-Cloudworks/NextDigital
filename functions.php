@@ -226,7 +226,114 @@ if (class_exists('Wp_Scss_Settings')) {
  * 実績用のサムネイルサイズを登録
  */
 function nextdigital_add_image_sizes() {
-    // 実績用サムネイル（363px×256px）
+    // 既存の設定
     add_image_size('work-thumbnail', 363, 256, true);
+    
+    // 実績詳細ページ用の追加設定
+    add_image_size('work-large', 896, 896, false);
+    add_image_size('gallery-thumb', 288, 288, true);
 }
 add_action('after_setup_theme', 'nextdigital_add_image_sizes');
+
+/**
+ * 実績詳細用のACFフィールドを登録
+ */
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+        'key' => 'group_works_details',
+        'title' => '実績詳細情報',
+        'fields' => array(
+            array(
+                'key' => 'field_project_date',
+                'label' => 'プロジェクト日付',
+                'name' => 'project_date',
+                'type' => 'text',
+                'instructions' => '例: 2022年10月',
+            ),
+            array(
+                'key' => 'field_client_name',
+                'label' => '取引先名',
+                'name' => 'client_name',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_work_summary',
+                'label' => '概要',
+                'name' => 'work_summary',
+                'type' => 'wysiwyg',
+            ),
+            array(
+                'key' => 'field_work_challenge',
+                'label' => '課題',
+                'name' => 'work_challenge',
+                'type' => 'wysiwyg',
+            ),
+            array(
+                'key' => 'field_work_solutions',
+                'label' => 'ソリューション',
+                'name' => 'work_solutions',
+                'type' => 'repeater',
+                'min' => 0,
+                'max' => 5,
+                'layout' => 'block',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_solution_text',
+                        'label' => 'ソリューション内容',
+                        'name' => 'solution_text',
+                        'type' => 'wysiwyg',
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_work_gallery',
+                'label' => 'プロジェクト画像',
+                'name' => 'work_gallery',
+                'type' => 'gallery',
+            ),
+            array(
+                'key' => 'field_work_results',
+                'label' => '成果',
+                'name' => 'work_results',
+                'type' => 'repeater',
+                'min' => 0,
+                'layout' => 'block',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_result_text',
+                        'label' => '成果内容',
+                        'name' => 'result_text',
+                        'type' => 'text',
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_client_testimonial',
+                'label' => 'お客様の声',
+                'name' => 'client_testimonial',
+                'type' => 'textarea',
+            ),
+            array(
+                'key' => 'field_client_position',
+                'label' => '部署・役職',
+                'name' => 'client_position',
+                'type' => 'text',
+            ),
+            array(
+                'key' => 'field_client_person',
+                'label' => '担当者名',
+                'name' => 'client_person',
+                'type' => 'text',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'works',
+                ),
+            ),
+        ),
+    ));
+}

@@ -7,20 +7,25 @@
  *
  *     @type string $title       The title text.
  *     @type string $description The description text.
+ *     @type string $background  Background color option (default or white).
  * }
  */
 
 // デフォルト値の設定
 $defaults = array(
-    'title'       => '見出し',
-    'description' => '説明文',
+    'title'       => 'サービスに関するお問い合わせ',
+    'description' => '各サービスの詳細や料金、導入事例などについてのご質問やご相談は、お気軽にお問い合わせください。専門のコンサルタントが丁寧にご対応いたします。',
+    'background'  => 'default',
 );
 
 // 引数が渡された場合は、デフォルト値とマージ
 $args = isset($args) ? wp_parse_args($args, $defaults) : $defaults;
+
+// 背景色のクラスを決定
+$background_class = ($args['background'] === 'white') ? 'bg-white' : '';
 ?>
 
-<section class="contact-cta">
+<section class="contact-cta <?php echo esc_attr($background_class); ?>">
     <div class="container">
         <div class="contact-cta-inner">
             <h2 class="contact-cta-title"><?php echo esc_html($args['title']); ?></h2>
