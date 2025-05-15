@@ -28,7 +28,7 @@ get_header();
                                       SEO対策、SNS運用、広告運用など、最適なチャネルを活用した 効果的な
                                       マーケティング施策を提供します。',
                     'link'         => 'services/service-a',
-                    'image'        => 'service-consulting.jpg',
+                    'image'        => 'service-marketing.jpg',
                     'alt'          => 'デジタル戦略コンサルティング'
                 ),
                 array(
@@ -52,7 +52,7 @@ get_header();
                                       業界知識と最新のテクノロジートレンドを組み合わせ、 お客様のビ
                                       ジネスに最適なDX戦略を策定します。',
                     'link'         => 'services/service-c',
-                    'image'        => 'service-marketing.jpg',
+                    'image'        => 'service-consulting.jpg',
                     'alt'          => 'デジタルマーケティング'
                 )
             );
