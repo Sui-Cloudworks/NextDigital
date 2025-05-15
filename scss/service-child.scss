@@ -130,7 +130,7 @@
   // 提供サービスセクション
   .service-features {
     padding: 80px 0;
-    background-color: $color-background;
+    background-color: $color-back-secondary;
     min-height: 1076px; // 最小高さ
     display: flex;
     align-items: center;
@@ -252,6 +252,195 @@
     
     .options-content {
       line-height: 1.8;
+    }
+  }
+
+    // 開発プロセスセクション (service-b用)
+  .development-process {
+    padding: 80px 0;
+    background-color: $color-background;
+    
+    @media (max-width: $breakpoint-md) {
+      padding: 60px 0;
+    }
+    
+    .container {
+      max-width: 1024px;
+    }
+    
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+    
+    .process-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 40px; // 下部にパディングを追加
+      
+      // 中央の縦線
+      &:before {
+        content: '';
+        position: absolute;
+        top: 20px; 
+        bottom: 0;  
+        left: 50%;
+        width: 2px;
+        background-color: #F3E8FF;
+        transform: translateX(-50%);
+        z-index: 1;
+      }
+    }
+    
+    .process-step {
+      display: flex;
+      align-items: flex-start; // 上揃えに変更
+      width: 100%;
+      margin-bottom: 40px; // 各ステップの間隔を増やす
+      position: relative;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+    }
+    
+    .process-content {
+      width: 448px;
+      padding-top: 0;
+      
+      @media (max-width: $breakpoint-md) {
+        width: 100%;
+        text-align: center;
+        order: 2;
+        margin-top: 20px;
+      }
+    }
+    
+    .process-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      
+      @media (max-width: $breakpoint-md) {
+        font-size: 18px;
+      }
+    }
+    
+    .process-description {
+      color: $color-secondary;
+      line-height: 1.8;
+    }
+    
+    .process-number {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color-primary-purple;
+      border-radius: 50%;
+      z-index: 2;
+      
+      span {
+        color: $color-background;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        position: relative;
+        order: 1;
+        margin-bottom: 15px;
+      }
+    }
+    
+    // 左側配置のスタイル
+    .step-left {
+      padding-right: 50%;
+      
+      .process-content {
+        text-align: right;
+        padding-right: 40px;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        padding-right: 0;
+        
+        .process-content {
+          text-align: center;
+          padding-right: 0;
+        }
+      }
+    }
+    
+    // 右側配置のスタイル
+    .step-right {
+      padding-left: 50%;
+      
+      .process-content {
+        text-align: left;
+        padding-left: 40px;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        padding-left: 0;
+        
+        .process-content {
+          text-align: center;
+          padding-left: 0;
+        }
+      }
+    }
+    
+    // 各ステップの数字と内容を上部で揃える
+    .process-step {
+      // 共通の高さ設定をリセット
+      &:nth-child(n) .process-number {
+        top: 0; // すべての数字を上部に揃える
+      }
+      
+      // 各ステップのマージン調整
+      &:nth-child(1) {
+        margin-top: 0;
+      }
+      
+      &:nth-child(2) {
+        margin-top: 40px;
+      }
+      
+      &:nth-child(3) {
+        margin-top: 40px;
+      }
+      
+      &:nth-child(4) {
+        margin-top: 40px;
+      }
+      
+      &:nth-child(5) {
+        margin-top: 40px;
+      }
+      
+      &:nth-child(6) {
+        margin-top: 40px;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        &:nth-child(n) {
+          margin-top: 0;
+        }
+      }
     }
   }
   
