@@ -103,7 +103,7 @@
                     <p class="section-description">これまでに手がけた主な実績をご紹介します。様々な業界のお客様のデジタル改革を支援してきました。</p>
                 </div>
                 
-                <div class="works-blocks">
+                <div class="works-grid">
                     <?php
                     // 実績の投稿を3件取得
                     $works_query = new WP_Query(array(
@@ -114,62 +114,13 @@
                     
                     if ($works_query->have_posts()) :
                         while ($works_query->have_posts()) : $works_query->the_post();
-                            // カスタムフィールドの取得（Advanced Custom Fieldsを使用）
-                            $category = '';
-                            if (function_exists('get_field')) {
-                                $category = get_field('service_category');
-                            }
-                    ?>
-                        <div class="work-block">
-                            <div class="work-image">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <?php the_post_thumbnail('medium'); ?>
-                                <?php else : ?>
-                                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/work-placeholder.jpg" alt="<?php the_title_attribute(); ?>">
-                                <?php endif; ?>
-                            </div>
-                            <?php if ($category) : ?>
-                                <div class="work-category"><?php echo esc_html($category); ?></div>
-                            <?php endif; ?>
-                            <h3 class="work-title"><?php the_title(); ?></h3>
-                            <div class="work-description"><?php the_excerpt(); ?></div>
-                            <a href="<?php the_permalink(); ?>" class="link-more">詳細を見る →</a>
-                        </div>
-                    <?php
+                            // template-parts/content-works.php を使用してカードを表示
+                            get_template_part('template-parts/content-works');
                         endwhile;
                         wp_reset_postdata();
                     else :
                     ?>
-                        <!-- 実績データがない場合のダミーデータ -->
-                        <div class="work-block">
-                            <div class="work-image">
-                                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/work-1.jpg" alt="ECサイトリニューアル">
-                            </div>
-                            <div class="work-category">DX戦略コンサルティング</div>
-                            <h3 class="work-title">大手アパレルブランドECサイトリニューアル</h3>
-                            <div class="work-description">顧客体験を向上させるUI/UXデザインと最新のテクノロジーを活用し、売上向上に貢献しました。</div>
-                            <a href="#" class="link-more">詳細を見る →</a>
-                        </div>
-                        
-                        <div class="work-block">
-                            <div class="work-image">
-                                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/work-2.jpg" alt="マーケティング戦略">
-                            </div>
-                            <div class="work-category">デジタルマーケティング</div>
-                            <h3 class="work-title">飲食チェーン店のデジタルマーケティング戦略</h3>
-                            <div class="work-description">データ分析に基づいたデジタル広告とSNS戦略により、新規顧客獲得と既存顧客のエンゲージメント向上を実現。</div>
-                            <a href="#" class="link-more">詳細を見る →</a>
-                        </div>
-                        
-                        <div class="work-block">
-                            <div class="work-image">
-                                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/work-3.jpg" alt="業務効率化システム">
-                            </div>
-                            <div class="work-category">システム開発</div>
-                            <h3 class="work-title">製造業向け業務効率化システムの開発</h3>
-                            <div class="work-description">生産管理・在庫管理を一元化するシステムを開発し、業務効率化と人的ミスの削減を支援しました。</div>
-                            <a href="#" class="link-more">詳細を見る →</a>
-                        </div>
+                        <p class="no-works">実績情報がありません。</p>
                     <?php endif; ?>
                 </div>
                 
@@ -219,27 +170,7 @@
                             wp_reset_postdata();
                         else :
                         ?>
-                            <!-- お知らせデータがない場合のダミーデータ -->
-                            <div class="news-item">
-                                <div class="news-date">2025-04-01</div>
-                                <div class="news-tag">お知らせ</div>
-                                <h3 class="news-title"><a href="#">新サービス「AIマーケティング分析ツール」の提供を開始しました</a></h3>
-                                <a href="#" class="news-link">→</a>
-                            </div>
-                            
-                            <div class="news-item">
-                                <div class="news-date">2025-03-15</div>
-                                <div class="news-tag">イベント</div>
-                                <h3 class="news-title"><a href="#">デジタルマーケティングセミナーを開催します（2025年4月10日）</a></h3>
-                                <a href="#" class="news-link">→</a>
-                            </div>
-                            
-                            <div class="news-item">
-                                <div class="news-date">2025-03-01</div>
-                                <div class="news-tag">採用情報</div>
-                                <h3 class="news-title"><a href="#">2026年度新卒採用情報を公開しました</a></h3>
-                                <a href="#" class="news-link">→</a>
-                            </div>
+                            <p class="no-news">お知らせはありません。</p>
                         <?php endif; ?>
                     </div>
                 </div>

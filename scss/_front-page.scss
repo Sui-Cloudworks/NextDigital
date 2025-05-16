@@ -241,64 +241,125 @@
 .works-section {
   padding: 100px 0;
   
-  .works-blocks {
+  // コンテナサイズを調整
+  .container-inner {
+    max-width: 1250px;
+  }
+  
+  // カードグリッドレイアウト
+  .works-grid {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
+    gap: 30px;
     margin-bottom: 60px;
-  }
-  
-  .work-block {
-    width: 394.66px;
-    padding-bottom: 20px;
-    position: relative;
     
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    // サービスカードデザインに合わせた実績カード
+    .work-item {
+      flex: 0 0 auto;
+      width: 394.66px;
+      margin: 0;
+      background-color: $color-background;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    // 画像サイズを固定
+    .work-image {
       width: 100%;
-      height: 1px;
-      background-color: $color-border;
+      height: 256px;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &:hover img {
+        transform: scale(1.05);
+      }
+    }
+    
+    // カードコンテンツ部分
+    .work-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    // カテゴリーバッジ
+    .work-category {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: $color-light-purple;
+      color: $color-primary-purple;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      width: fit-content;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    // タイトル
+    .work-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      
+      a {
+        color: $color-primary;
+        text-decoration: none;
+        
+        &:hover {
+          color: $color-primary-purple;
+        }
+      }
+    }
+    
+    // 抜粋・概要
+    .work-excerpt {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+    
+    // 詳細リンク
+    .work-link {
+      color: $color-primary-purple;
+      text-decoration: none;
+      margin-top: auto;
+      
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   
-  .work-image {
-    height: 220px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  // メッセージ
+  .no-works {
+    text-align: center;
+    color: $color-secondary;
+    padding: 40px 0;
+    width: 100%;
   }
   
-  .work-category {
-    display: inline-block;
-    padding: 4px 10px;
-    background-color: $color-light-purple;
-    color: $color-primary-purple;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  .work-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  
-  .work-description {
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-  
+  // 「もっと見る」リンク
   .works-more {
     text-align: center;
   }
@@ -454,15 +515,30 @@
   }
   
   // 3カラムレイアウトを2カラムに変更
-  .about-section, .services-section, .works-section {
-    .feature-blocks, .service-blocks, .works-blocks {
+  .about-section, .services-section {
+    .feature-blocks, .service-blocks {
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
     }
     
-    .feature-block, .service-block, .work-block {
+    .feature-block, .service-block {
       width: calc(50% - 15px);
+    }
+  }
+  
+  // 実績セクションのレスポンシブ対応
+  .works-section {
+    .works-grid {
+      justify-content: center;
+      flex-wrap: wrap; // タブレットサイズでは折り返しを許可
+      justify-content: center;
+      gap: 30px; // ギャップを追加
+
+      .work-item {
+        width: calc(50% - 15px);
+        max-width: 394.66px;
+      }
     }
   }
 }
@@ -494,10 +570,20 @@
   }
   
   // 2カラムレイアウトを1カラムに変更
-  .about-section, .services-section, .works-section {
-    .feature-block, .service-block, .work-block {
+  .about-section, .services-section {
+    .feature-block, .service-block {
       width: 100%;
       max-width: 400px;
+    }
+  }
+  
+  // 実績セクションの1カラム表示
+  .works-section {
+    .works-grid {
+      .work-item {
+        width: 100%;
+        max-width: 400px;
+      }
     }
   }
   
@@ -630,17 +716,19 @@
   }
   
   // 実績ブロックのスタイル調整
-  .work-block {
-    .work-image {
-      height: 180px;
-    }
-    
-    .work-title {
-      font-size: 18px;
-    }
-    
-    .work-description {
-      font-size: 14px;
+  .works-section {
+    .works-grid {
+      .work-image {
+        height: 180px;
+      }
+      
+      .work-title {
+        font-size: 18px;
+      }
+      
+      .work-excerpt {
+        font-size: 14px;
+      }
     }
   }
   

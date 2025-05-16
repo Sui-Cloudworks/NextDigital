@@ -52,7 +52,7 @@ $works-border-radius: 8px;
 .works-archive {
   // ページヒーロー
   .page-hero {
-    background-color: $color-light;
+    background-color: $color-hero-purple;
     padding: 80px 0;
     text-align: center;
     
@@ -61,7 +61,7 @@ $works-border-radius: 8px;
     }
     
     .page-title {
-      font-size: $font-size-3xl;
+      font-size: 48px;
       font-weight: 700;
       margin-bottom: 20px;
       

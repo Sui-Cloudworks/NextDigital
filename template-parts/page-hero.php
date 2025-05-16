@@ -31,7 +31,7 @@ if (function_exists('get_field') && get_field('hero_description')) {
 ?>
 
 <section class="page-hero">
-    <div class="container">
+    <div class="container-inner">
         <h1 class="page-title"><?php echo esc_html($hero_title); ?></h1>
         <?php if (!empty($hero_description)) : ?>
             <p class="page-description"><?php echo esc_html($hero_description); ?></p>
