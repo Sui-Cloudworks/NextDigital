@@ -1,7 +1,7 @@
 [
     {
-        "key": "group_works_details",
-        "title": "実績詳細情報",
+        "key": "group_news_details",
+        "title": "お知らせ詳細情報",
         "fields": [
             {
                 "key": "field_project_date",

@@ -1,72 +1,256 @@
-// News archive styles
-.news-archive {
-  .news-item {
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid $color-border;
+// -----------------------------------------------------------------------------
+// ニュース（お知らせ）ページのスタイル
+// -----------------------------------------------------------------------------
+
+// ニュース一覧ページ全体
+.news-page {
+    padding: 60px 0;
     
-    &:last-child {
-      border-bottom: none;
+    @media (max-width: $breakpoint-md) {
+        padding: 40px 0;
     }
     
-    .entry-meta {
-      margin-bottom: 10px;
-      font-size: $font-size-small;
-      color: $color-secondary;
+    .page-hero {
+        background-color: $color-hero-purple;
+        padding: 80px 0;
+        text-align: center;
+        margin-bottom: 60px;
+        
+        @media (max-width: $breakpoint-md) {
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: $color-text;
+            
+            @media (max-width: $breakpoint-md) {
+                font-size: $font-size-2xl;
+            }
+        }
+        
+        .page-description {
+            max-width: 768px;
+            margin: 0 auto;
+            color: $color-secondary;
+            font-size: $font-size-large;
+            
+            @media (max-width: $breakpoint-md) {
+                font-size: $font-size-base;
+            }
+        }
     }
-    
-    .entry-title {
-      font-size: $font-size-large;
-      margin-bottom: 15px;
-    }
-    
-    .entry-content {
-      p:last-child {
-        margin-bottom: 0;
-      }
-    }
-    
-    .read-more {
-      display: inline-block;
-      margin-top: 15px;
-      font-weight: 500;
-    }
-  }
 }
 
-// News single post styles
-.single-post {
-  .entry-header {
-    margin-bottom: 30px;
+// ニュース一覧コンテナ
+.news-list {
+    padding: 40px 0 80px;
     
-    .entry-title {
-      margin-bottom: 15px;
+    @media (max-width: $breakpoint-md) {
+        padding: 30px 0 60px;
     }
     
-    .entry-meta {
-      font-size: $font-size-small;
-      color: $color-secondary;
+    .container {
+        max-width: 1024px;
     }
-  }
-  
-  .post-navigation {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid $color-border;
+}
+
+// ニュースグリッド（カード一覧）
+.news-grid {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    max-width: 1024px;
+    margin: 0 auto;
     
-    .nav-previous,
-    .nav-next {
-      max-width: 45%;
+    @media (max-width: $breakpoint-md) {
+        justify-content: center;
+        gap: 20px;
     }
+    
+    @media (max-width: $breakpoint-sm) {
+        display: block;
+    }
+}
+
+// ニュースアイテム（各カード）- 名前空間を追加して競合を避ける
+.nexus-news-item {
+    width: 48% !important;
+    float: left !important;
+    margin: 0 1% 30px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    display: block !important;
+    
+    @media (max-width: $breakpoint-md) {
+        width: calc(50% - 20px) !important;
+        margin: 10px !important;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+        width: 100% !important;
+        margin: 0 0 24px 0 !important;
+        float: none !important;
+    }
+    
+    &:last-child {
+        @media (max-width: $breakpoint-sm) {
+            margin-bottom: 0 !important;
+        }
+    }
+}
+
+// カード内部のレイアウト
+.nexus-news-inner {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+// 行クリア用
+.nexus-clear-row {
+    clear: both !important;
+}
+
+// ニュース画像部分
+.nexus-news-image {
+    position: relative !important;
+    height: 192px !important;
+    width: 100% !important;
+    overflow: hidden !important;
     
     a {
-      color: $color-text;
-      
-      &:hover {
-        color: $color-accent;
-      }
+        display: block !important;
+        height: 100% !important;
+        width: 100% !important;
+        overflow: hidden !important;
     }
-  }
+    
+    img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        min-width: 496px !important;
+        
+        @media (max-width: $breakpoint-md) {
+            min-width: auto !important;
+        }
+    }
+    
+    // タグ - 左上に配置
+    .nexus-news-tag {
+        position: absolute !important;
+        top: 16px !important;
+        left: 16px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #fff !important;
+        background-color: #9333EA !important;
+        padding: 4px 12px !important;
+        border-radius: 9999px !important;
+        z-index: 5 !important;
+    }
+}
+
+// ニュースコンテンツ部分
+.nexus-news-content {
+    padding: 20px !important;
+}
+
+// 日付メタ情報
+.nexus-news-meta {
+    margin-bottom: 12px !important;
+    font-size: 14px !important;
+    color: #6B7280 !important;
+}
+
+// ニュースタイトル
+.nexus-news-title {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    margin-bottom: 12px !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+    color: #0A0A0A !important;
+    
+    a {
+        color: #0A0A0A !important;
+        text-decoration: none !important;
+        
+        &:hover {
+            text-decoration: underline !important;
+        }
+    }
+}
+
+// ニュース抜粋
+.nexus-news-excerpt {
+    color: #6B7280 !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+    word-wrap: break-word !important;
+    
+    p {
+        margin-bottom: 0 !important;
+    }
+}
+
+// 詳細リンク
+.nexus-news-more {
+    display: inline-block !important;
+    color: #9333EA !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+// 以下はそのまま
+// ページネーション
+.pagination {
+    margin-top: 40px;
+    text-align: center;
+    
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        
+        .page-numbers {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            padding: 0 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            color: $color-text;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            
+            &.current {
+                background-color: $color-primary-purple;
+                color: #fff;
+            }
+            
+            &:hover:not(.current) {
+                background-color: #f3f4f6;
+            }
+            
+            &.prev, &.next {
+                background-color: transparent;
+            }
+        }
+    }
 }

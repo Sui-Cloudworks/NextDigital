@@ -410,4 +410,111 @@ if (function_exists('acf_add_local_field_group')) {
             ),
         ),
     ));
+
+    /**
+     * お知らせページ用の画像サイズを登録
+     * functions.php に追加
+     */
+    
+    // カスタム画像サイズを追加
+    function nextdigital_custom_image_sizes() {
+        // お知らせ一覧用のサムネイルサイズ（496x192）
+        add_image_size('news-thumbnail', 496, 192, true);
+    }
+    add_action('after_setup_theme', 'nextdigital_custom_image_sizes');
+
+    // 管理画面の画像サイズ選択に追加
+    function nextdigital_custom_image_sizes_names($sizes) {
+        return array_merge($sizes, array(
+            'news-thumbnail' => __('お知らせサムネイル', 'nextdigital'),
+        ));
+    }
+    add_filter('image_size_names_choose', 'nextdigital_custom_image_sizes_names');
+
+    /**
+     * お知らせページ用のスクリプトを登録
+     * functions.php に追加
+     */
+    
+    // スクリプトの登録と読み込み
+    function nextdigital_news_scripts() {
+        // お知らせページの場合のみ読み込み
+        if (is_page_template('page-news.php') || is_category('news')) {
+            // お知らせカード用スクリプト
+            wp_enqueue_script(
+                'nextdigital-news-cards',
+                get_template_directory_uri() . '/js/news-cards.js',
+                array(), // 依存関係なし
+                filemtime(get_template_directory() . '/js/news-cards.js'), // バージョン（ファイル更新時に自動更新）
+                true // フッターで読み込み
+            );
+        }
+    }
+    add_action('wp_enqueue_scripts', 'nextdigital_news_scripts');
+
+    /**
+ * 管理画面の「投稿」メニューを「お知らせ投稿」に変更する
+ */
+function nextdigital_change_post_menu_label() {
+    global $menu;
+    global $submenu;
+    
+    // メインメニューの「投稿」を「お知らせ投稿」に変更
+    $menu[5][0] = 'お知らせ投稿';
+    
+    // サブメニューの「投稿」を「お知らせ一覧」に変更
+    if(isset($submenu['edit.php'])) {
+        $submenu['edit.php'][5][0] = 'お知らせ一覧';
+        $submenu['edit.php'][10][0] = '新規お知らせ追加';
+    }
+}
+add_action('admin_menu', 'nextdigital_change_post_menu_label');
+
+/**
+ * 管理画面の「投稿」関連のラベルを変更する
+ */
+function nextdigital_change_post_object_label() {
+    global $wp_post_types;
+    
+    // 「投稿」を「お知らせ」に置き換える
+    $labels = &$wp_post_types['post']->labels;
+    $labels->name = 'お知らせ';
+    $labels->singular_name = 'お知らせ';
+    $labels->add_new = '新規お知らせを追加';
+    $labels->add_new_item = '新規お知らせを追加';
+    $labels->edit_item = 'お知らせを編集';
+    $labels->new_item = '新規お知らせ';
+    $labels->view_item = 'お知らせを表示';
+    $labels->search_items = 'お知らせを検索';
+    $labels->not_found = 'お知らせが見つかりませんでした';
+    $labels->not_found_in_trash = 'ゴミ箱にお知らせはありません';
+    $labels->menu_name = 'お知らせ投稿';
+}
+add_action('init', 'nextdigital_change_post_object_label');
+
+/**
+ * 管理画面に投稿ページのスタイルをカスタマイズするためのCSS追加
+ */
+function nextdigital_admin_post_styles() {
+    // 投稿画面のみに適用するスタイル
+    echo '<style>
+        /* 投稿メニューアイコンの色を変更 */
+        #adminmenu .menu-icon-post div.wp-menu-image:before {
+            color: #9333EA !important;
+        }
+        
+        /* 投稿一覧ページのヘッダーをカスタマイズ */
+        .post-type-post .wrap h1.wp-heading-inline {
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .post-type-post .wrap h1.wp-heading-inline:before {
+            content: "📢";
+            position: absolute;
+            left: 0;
+        }
+    </style>';
+}
+add_action('admin_head', 'nextdigital_admin_post_styles');
 }
